@@ -76,15 +76,15 @@ function autoload($class)
             $dir = SYSTEM_PATH . 'libraries' . DIRECTORY_SEPARATOR . $parent . DIRECTORY_SEPARATOR . 'drivers' . DIRECTORY_SEPARATOR;
             $class = $subclass;
         } elseif (preg_match('/^CI_DB_(.+)_(.+)_(driver|forge|result|utility)$/', $class, $m) && count($m) === 4) {
-            $driver_path = SYSTEM_PATH . 'database' . DIRECTORY_SEPARATOR . 'drivers' . DIRECTORY_SEPARATOR;
+            $driver_path = SYSTEM_PATH . 'Database' . DIRECTORY_SEPARATOR . 'drivers' . DIRECTORY_SEPARATOR;
             $dir = $driver_path . $m[1] . DIRECTORY_SEPARATOR . 'subdrivers' . DIRECTORY_SEPARATOR;
             $file = $dir . $m[1] . '_' . $m[2] . '_' . $m[3] . '.php';
         } elseif (preg_match('/^CI_DB_(.+)_(driver|forge|result|utility)$/', $class, $m) && count($m) === 3) {
-            $driver_path = SYSTEM_PATH . 'database' . DIRECTORY_SEPARATOR . 'drivers' . DIRECTORY_SEPARATOR;
+            $driver_path = SYSTEM_PATH . 'Database' . DIRECTORY_SEPARATOR . 'drivers' . DIRECTORY_SEPARATOR;
             $dir = $driver_path . $m[1] . DIRECTORY_SEPARATOR;
             $file = $dir . $m[1] . '_' . $m[2] . '.php';
         } elseif (strpos($class, 'CI_DB') === 0) {
-            $dir = SYSTEM_PATH . 'database' . DIRECTORY_SEPARATOR;
+            $dir = SYSTEM_PATH . 'Database' . DIRECTORY_SEPARATOR;
             $file = $dir . str_replace(array('CI_DB', 'active_record'), array('DB', 'active_rec'), $subclass) . '.php';
         } else {
             $class = strtolower($class);

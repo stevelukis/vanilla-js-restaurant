@@ -85,7 +85,7 @@ class CI_Session
         } // Note: BC workaround
         elseif (config_item('sess_use_database')) {
             log_message('debug', 'Session: "sess_driver" is empty; using BC fallback to "sess_use_database".');
-            $this->_driver = 'database';
+            $this->_driver = 'Database';
         }
 
         $class = $this->_ci_load_classes($this->_driver);

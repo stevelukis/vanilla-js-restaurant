@@ -211,9 +211,9 @@ class CI_Loader
         // Load libraries
         if (isset($autoload['libraries']) && count($autoload['libraries']) > 0) {
             // Load the database driver.
-            if (in_array('database', $autoload['libraries'])) {
+            if (in_array('Database', $autoload['libraries'])) {
                 $this->database();
-                $autoload['libraries'] = array_diff($autoload['libraries'], array('database'));
+                $autoload['libraries'] = array_diff($autoload['libraries'], array('Database'));
             }
 
             // Load all other libraries

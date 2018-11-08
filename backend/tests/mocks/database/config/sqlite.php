@@ -8,7 +8,7 @@ return array(
         'hostname' => 'localhost',
         'username' => 'sqlite',
         'password' => 'sqlite',
-        'database' => realpath(__DIR__ . '/..') . '/ci_test.sqlite',
+        'Database' => realpath(__DIR__ . '/..') . '/ci_test.sqlite',
         'dbdriver' => 'sqlite3'
     ),
 
@@ -18,7 +18,7 @@ return array(
         'hostname' => 'localhost',
         'username' => 'sqlite',
         'password' => 'sqlite',
-        'database' => '../not_exists.sqlite',
+        'Database' => '../not_exists.sqlite',
         'dbdriver' => 'sqlite3',
         'failover' => array(
             array(
@@ -26,7 +26,7 @@ return array(
                 'hostname' => 'localhost',
                 'username' => 'sqlite',
                 'password' => 'sqlite',
-                'database' => realpath(__DIR__ . '/..') . '/ci_test.sqlite',
+                'Database' => realpath(__DIR__ . '/..') . '/ci_test.sqlite',
                 'dbdriver' => 'sqlite3'
             )
         )

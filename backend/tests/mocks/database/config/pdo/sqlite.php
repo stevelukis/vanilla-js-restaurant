@@ -8,7 +8,7 @@ return array(
         'hostname' => 'localhost',
         'username' => 'sqlite',
         'password' => 'sqlite',
-        'database' => 'sqlite',
+        'Database' => 'sqlite',
         'dbdriver' => 'pdo',
         'subdriver' => 'sqlite'
     ),
@@ -19,7 +19,7 @@ return array(
         'hostname' => 'localhost',
         'username' => 'sqlite',
         'password' => 'sqlite',
-        'database' => 'sqlite',
+        'Database' => 'sqlite',
         'dbdriver' => 'pdo',
         'subdriver' => 'sqlite',
         'failover' => array(
@@ -28,7 +28,7 @@ return array(
                 'hostname' => 'localhost',
                 'username' => 'sqlite',
                 'password' => 'sqlite',
-                'database' => 'sqlite',
+                'Database' => 'sqlite',
                 'dbdriver' => 'pdo',
                 'subdriver' => 'sqlite'
             )

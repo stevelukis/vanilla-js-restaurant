@@ -59,7 +59,7 @@ class Mock_Database_DB
             'DB_result.php' => '',
             'DB_forge.php' => '',
             'DB_query_builder.php' => ''
-        ), '', $case->ci_base_root, 'database');
+        ), '', $case->ci_base_root, 'Database');
         if (file_exists(SYSTEM_PATH . 'database/drivers/' . $driver . '/' . $driver . '_driver.php')) {
             $case->ci_vfs_create(array(
                 $driver . '_driver.php' => '',
@@ -120,7 +120,7 @@ class Mock_Database_DB
         $failover = empty($config['failover']) ? FALSE : $config['failover'];
 
         $dsn = $config['dbdriver'] . '://' . $config['username'] . ':' . $config['password']
-            . '@' . $config['hostname'] . '/' . $config['database'];
+            . '@' . $config['hostname'] . '/' . $config['Database'];
 
         // Build the parameter
         $other_params = array_slice($config, 6);

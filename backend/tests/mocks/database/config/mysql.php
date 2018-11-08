@@ -8,7 +8,7 @@ return array(
         'hostname' => 'localhost',
         'username' => 'travis',
         'password' => '',
-        'database' => 'ci_test',
+        'Database' => 'ci_test',
         'dbdriver' => 'mysql'
     ),
 
@@ -18,7 +18,7 @@ return array(
         'hostname' => 'localhost',
         'username' => 'not_travis',
         'password' => 'wrong password',
-        'database' => 'not_ci_test',
+        'Database' => 'not_ci_test',
         'dbdriver' => 'mysql',
         'failover' => array(
             array(
@@ -26,7 +26,7 @@ return array(
                 'hostname' => 'localhost',
                 'username' => 'travis',
                 'password' => '',
-                'database' => 'ci_test',
+                'Database' => 'ci_test',
                 'dbdriver' => 'mysql',
             )
         )

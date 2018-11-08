@@ -1,13 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Steve
- * Date: 2018-11-07
- * Time: 6:22 PM
- */
 
 class Pelanggan_Database extends CI_Model
 {
+
     public function __construct()
     {
         $this->load->database();

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Steve
- * Date: 2018-11-07
- * Time: 4:53 PM
- */
 
 class Restaurant extends CI_Controller
 {

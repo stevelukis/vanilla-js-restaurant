@@ -1,6 +1,6 @@
 <?php
 
-class Pelanggan_Database extends CI_Model
+class Pelanggan_Model extends CI_Model
 {
 
     public function __construct()

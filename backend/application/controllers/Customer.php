@@ -1,11 +1,11 @@
 <?php
 
-class Pelanggan extends CI_Controller
+class Customer extends CI_Controller
 {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('pelanggan_model');
+        $this->load->model('customer_model');
     }
 
     public function test()
@@ -20,11 +20,20 @@ class Pelanggan extends CI_Controller
         $this->load->view('result.php', $data);
     }
 
-    public function register() {
-        $data = $this->getPostedObject();
+    public function order_status() {
+        $params = $this->getPostedObject();
+        $userId = $params['user_id'];
 
-        $timestamp = $data['timestamp'];
-        $tableNumber = $data['table_number'];
+        $result = $this->customer_model->getOrderStatus($userId);
+        $data['result'] = json_encode($result);
+        $this->load->view('result.php', $data);
+    }
+
+    public function register() {
+        $params = $this->getPostedObject();
+
+        $timestamp = $params['timestamp'];
+        $tableNumber = $params['table_number'];
 
         $this->pelanggan_model->registerUser($timestamp, $tableNumber);
     }

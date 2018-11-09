@@ -1,6 +1,6 @@
 <?php
 
-class Pelanggan_Model extends CI_Model
+class Customer_Model extends CI_Model
 {
 
     public function __construct()
@@ -38,6 +38,21 @@ class Pelanggan_Model extends CI_Model
             $item['category'] = $categories[$tempCategoryId];
             array_push($result, $item);
         }
+        return $result;
+    }
+
+    public function getOrderStatus($userId) {
+        $orders = $this->db->get_where('order', array('user_id' => $userId))->result_array();
+
+        $result = [];
+
+        foreach ($orders as $order) {
+            $menu = $this->db->get_where('menu', array('id' => $order['menu_id']))->row_array()['name'];
+            unset($order['menu_id']);
+            $order['menu'] = $menu;
+            array_push($result, $order);
+        }
+
         return $result;
     }
 

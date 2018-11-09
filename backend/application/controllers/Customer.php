@@ -16,8 +16,8 @@ class Customer extends CI_Controller
 
     public function menu()
     {
-        $data['result'] = json_encode($this->pelanggan_model->getMenu());
-        $this->load->view('result.php', $data);
+        $result = $this->pelanggan_model->getMenu();
+        $this->loadResult($result);
     }
 
     public function order_status() {
@@ -25,8 +25,7 @@ class Customer extends CI_Controller
         $userId = $params['user_id'];
 
         $result = $this->customer_model->getOrderStatus($userId);
-        $data['result'] = json_encode($result);
-        $this->load->view('result.php', $data);
+        $this->loadResult($result);
     }
 
     public function register() {
@@ -36,6 +35,20 @@ class Customer extends CI_Controller
         $tableNumber = $params['table_number'];
 
         $this->pelanggan_model->registerUser($timestamp, $tableNumber);
+
+        $this->loadStatusResult();
+    }
+
+    private function loadStatusResult($success = true) {
+        $result = array(
+            "status" => ($success ? "success" : "fail")
+        );
+        $this->loadResult($result);
+    }
+
+    private function loadResult($result) {
+        $data['result'] = json_encode($result);
+        $this->load->view('result.php', $data);
     }
 
     private function getPostedObject()

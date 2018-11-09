@@ -14,5 +14,22 @@ class Manager_Model extends CI_Model
         $this->load->database();
     }
 
+    public function addCategory($categoryName) {
+        return $this->db->insert('category', array('name' => $categoryName));
+    }
+
+    public function getCategories() {
+        $result = $this->db->get('category')->result_array();
+        return $result;
+    }
+
+    public function updateCategory($category) {
+        $this->db->where('id', $category['id']);
+        return $this->db->update('category', $category);
+    }
+
+    public function deleteCategory($categoryId) {
+        return $this->db->delete('category', array('id' => $categoryId));
+    }
 
 }

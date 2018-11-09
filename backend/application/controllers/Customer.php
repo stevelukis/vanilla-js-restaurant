@@ -28,9 +28,17 @@ class Customer extends CI_Controller
         $timestamp = $params['timestamp'];
         $tableNumber = $params['table_number'];
 
-        $this->pelanggan_model->registerUser($timestamp, $tableNumber);
+        $this->customer_model->registerUser($timestamp, $tableNumber);
 
         $this->loadStatusResult();
+    }
+
+    public function order()
+    {
+        $params = $this->getPostedObject();
+
+        $result = $this->customer_model->addOrder($params);
+        $this->loadStatusResult($result);
     }
 
     private function loadStatusResult($success = true) {

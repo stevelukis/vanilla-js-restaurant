@@ -56,4 +56,9 @@ class Customer_Model extends CI_Model
         return $result;
     }
 
+    public function addOrder($order)
+    {
+        return $this->db->insert('order', $order);
+    }
+
 }

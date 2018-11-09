@@ -33,6 +33,15 @@ class Chef_Model extends CI_Model
         return $result;
     }
 
+    public function updateOrder($orderId, $inProgress = true)
+    {
+        $this->db->where('id', $orderId);
+
+        $newStatus = $inProgress ? 2 : 3;
+
+        return $this->db->update('order', array('cooked_status' => $newStatus));
+    }
+
     private function changeKey($array, $oldKey, $newKey)
     {
         $array[$newKey] = $array[$oldKey];

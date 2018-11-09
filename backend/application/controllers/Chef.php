@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Steve
- * Date: 2018-11-09
- * Time: 9:47 PM
- */
 
 class Chef extends CI_Controller
 {
@@ -18,6 +12,31 @@ class Chef extends CI_Controller
     {
         $result = $this->chef_model->getOrders();
         $this->loadResult($result);
+    }
+
+    public function in_progress()
+    {
+        $this->updateOrder(true);
+    }
+
+    public function done()
+    {
+        $this->updateOrder(false);
+    }
+
+    private function updateOrder($in_progress = true)
+    {
+        $params = $this->getPostedObject();
+
+        $orderId = $params['id'];
+
+        $result = $this->chef_model->updateOrder($orderId, $in_progress);
+        $this->loadStatusResult($result);
+    }
+
+    private function getPostedObject()
+    {
+        return json_decode($this->security->xss_clean($this->input->raw_input_stream), true);
     }
 
     private function loadResult($result)

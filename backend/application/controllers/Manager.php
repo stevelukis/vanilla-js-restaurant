@@ -41,6 +41,26 @@ class Manager extends CI_Controller
         $this->loadStatusResult($success);
     }
 
+    public function add_menu() {
+        $params = $this->getPostedObject();
+        $success = $this->manager_model->addMenu($params);
+        $this->loadStatusResult($success);
+    }
+
+    public function delete_menu() {
+        $params = $this->getPostedObject();
+
+        $menuId = $params['id'];
+        $success = $this->manager_model->deleteMenu($menuId);
+        $this->loadStatusResult($success);
+    }
+
+    public function update_menu() {
+        $params = $this->getPostedObject();
+        $success = $this->manager_model->updateMenu($params);
+        $this->loadStatusResult($success);
+    }
+
     private function loadStatusResult($success = true) {
         $result = array(
             "status" => ($success ? "success" : "fail")

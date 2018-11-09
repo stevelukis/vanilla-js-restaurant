@@ -15,21 +15,47 @@ class Manager_Model extends CI_Model
     }
 
     public function addCategory($categoryName) {
-        return $this->db->insert('category', array('name' => $categoryName));
+        return $this->add('category', $categoryName);
     }
 
     public function getCategories() {
-        $result = $this->db->get('category')->result_array();
-        return $result;
+        return $this->getAll('category');
     }
 
     public function updateCategory($category) {
-        $this->db->where('id', $category['id']);
-        return $this->db->update('category', $category);
+        return $this->update('category', $category, 'id', $category['id']);
     }
 
     public function deleteCategory($categoryId) {
-        return $this->db->delete('category', array('id' => $categoryId));
+        $this->delete('category', array('id' => $categoryId));
     }
 
+    public function addMenu($menu) {
+        return $this->add('menu', $menu);
+    }
+
+    public function updateMenu($menu) {
+        return $this->update('menu', $menu, "id", $menu['id']);
+    }
+
+    public function deleteMenu($menuId) {
+        return $this->delete('menu', array('id' => $menuId));
+    }
+
+    private function add($table, $params) {
+        return $this->db->insert($table, $params);
+    }
+
+    private function update($table, $params, $whereKey, $whereValue) {
+        $this->db->where($whereKey, $whereValue);
+        return $this->db->update($table, $params);
+    }
+
+    private function delete($table, $params) {
+        return $this->db->delete($table, $params);
+    }
+
+    private function getAll($table) {
+        return $this->db->get($table)->result_array();
+    }
 }

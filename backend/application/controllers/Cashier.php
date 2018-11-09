@@ -18,9 +18,27 @@ class Cashier extends CI_Controller
         $this->loadResult($result);
     }
 
+    public function paid()
+    {
+        $params = $this->getPostedObject();
+
+        $userId = $params['id'];
+
+        $result = $this->cashier_model->updateUser($userId);
+        $this->loadStatusResult($result);
+    }
+
     private function getPostedObject()
     {
         return json_decode($this->security->xss_clean($this->input->raw_input_stream), true);
+    }
+
+    private function loadStatusResult($success = true)
+    {
+        $result = array(
+            "status" => ($success ? "success" : "fail")
+        );
+        $this->loadResult($result);
     }
 
     private function loadResult($result)

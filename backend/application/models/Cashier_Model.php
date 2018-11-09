@@ -31,6 +31,17 @@ class Cashier_Model extends CI_Model
         return $result;
     }
 
+    public function updateUser($userId)
+    {
+        return $this->update('user', array('paid' => 2), 'id', $userId);
+    }
+
+    private function update($table, $params, $whereKey, $whereValue)
+    {
+        $this->db->where($whereKey, $whereValue);
+        return $this->db->update($table, $params);
+    }
+
     private function changeKey($array, $oldKey, $newKey)
     {
         $array[$newKey] = $array[$oldKey];

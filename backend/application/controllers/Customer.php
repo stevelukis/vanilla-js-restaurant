@@ -8,12 +8,6 @@ class Customer extends CI_Controller
         $this->load->model('customer_model');
     }
 
-    public function test()
-    {
-        $data['result'] = "LALALA";
-        $this->load->view('result.php', $data);
-    }
-
     public function menu()
     {
         $result = $this->pelanggan_model->getMenu();

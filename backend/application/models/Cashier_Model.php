@@ -21,7 +21,8 @@ class Cashier_Model extends CI_Model
             $menu = $this->db->get_where('menu', array('id' => $order['menu_id']))->row_array();
 
             $order['menu_id'] = $menu['name'];
-            $this->changeKey($order, "menu_id", "menu_name");
+            $order['menu_name'] = $order['menu_id'];
+            unset($order['menu_id']);
 
             $order['price'] = $menu['price'];
 

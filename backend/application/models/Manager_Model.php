@@ -15,7 +15,7 @@ class Manager_Model extends CI_Model
     }
 
     public function addCategory($categoryName) {
-        return $this->add('category', $categoryName);
+        return $this->add('category', array('name' => $categoryName));
     }
 
     public function getCategories() {

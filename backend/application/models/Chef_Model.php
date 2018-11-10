@@ -15,7 +15,7 @@ class Chef_Model extends CI_Model
 
     public function getOrders()
     {
-        $orders = $this->db->get_where('order', array('cooked_status' => 'not_yet'))->result_array();
+        $orders = $this->db->select('*')->from('order')->where_in('cooked_status', [1, 2])->get()->result_array();
 
         $result = [];
 
@@ -23,9 +23,8 @@ class Chef_Model extends CI_Model
             $menu = $this->db->get_where('menu', array('id' => $order['menu_id']))->row_array();
 
             $order['menu_id'] = $menu['name'];
-            $this->changeKey($order, "menu_id", "menu_name");
-
-            unset($order['cooked_status']);
+            $order['menu_name'] = $order['menu_id'];
+            unset($order['menu_id']);
 
             array_push($result, $order);
         }

@@ -10,7 +10,7 @@ class Customer extends CI_Controller
 
     public function menu()
     {
-        $result = $this->pelanggan_model->getMenu();
+        $result = $this->customer_model->getMenu();
         $this->loadResult($result);
     }
 

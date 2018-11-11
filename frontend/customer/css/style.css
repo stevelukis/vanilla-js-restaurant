@@ -1,0 +1,44 @@
+/*No scrollbar*/
+body {
+    overflow-y: hidden;
+}
+
+.left {
+    height: 100%;
+}
+
+div.topbar {
+    height: 12%;
+    box-shadow: 0 2px 8px #888888;
+}
+
+div.menu {
+    height: 88%;
+}
+
+.right {
+    height: 100%;
+}
+
+div.comelo {
+    background-image: linear-gradient(to right, #FF0000, #FF8000);
+    height: 10%;
+}
+
+div.order-list {
+    background-color: #1f1d1d;
+    height: 90%;
+}
+
+h1.comelo {
+    color: white;
+}
+
+.row {
+    height: 100%;
+}
+
+.container-fluid {
+    bottom: 0;
+    top: 0;
+}

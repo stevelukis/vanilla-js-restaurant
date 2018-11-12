@@ -26,6 +26,10 @@ div.order-list {
     background: #333030;
 }
 
+p.order-list {
+    color: white;
+}
+
 div.food-beverage {
     background: #fff;
     box-shadow: 0 2px 8px #888888;
@@ -67,3 +71,4 @@ a.food-tab {
 .food-desc {
     height: 30%;
 }
+

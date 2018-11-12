@@ -1,44 +1,69 @@
-/*No scrollbar*/
-body {
-    overflow-y: hidden;
+@font-face {
+    font-family: "comelo";
+    src: url(../font/comelo.ttf);
 }
 
-.left {
+html, body, .wrapper, .row, .container-fluid {
     height: 100%;
 }
 
-div.topbar {
-    height: 12%;
-    box-shadow: 0 2px 8px #888888;
-}
-
-div.menu {
-    height: 88%;
-}
-
-.right {
-    height: 100%;
+html {
+    overflow: hidden;
 }
 
 div.comelo {
     background-image: linear-gradient(to right, #FF0000, #FF8000);
-    height: 10%;
-}
-
-div.order-list {
-    background-color: #1f1d1d;
-    height: 90%;
+    height: 15%;
 }
 
 h1.comelo {
-    color: white;
+    color: #fff;
+    font-family: comelo, serif;
 }
 
-.row {
-    height: 100%;
+div.order-list {
+    overflow: scroll;
+    background: #333030;
 }
 
-.container-fluid {
-    bottom: 0;
-    top: 0;
+div.food-beverage {
+    background: #fff;
+    box-shadow: 0 2px 8px #888888;
+    height: 18.2%;
+}
+
+.food {
+    margin-right: 25px;
+}
+
+
+h3.food {
+    margin-left: 42px;
+}
+
+.menu-list {
+    height: 85%;
+    overflow: scroll;
+    padding: 12px;
+}
+
+a.food-tab {
+    text-decoration: none;
+    color: black;
+}
+
+.menu-card {
+    height: 200px;
+    box-shadow: 0 2px 8px #888888;
+}
+
+.food-image {
+    overflow: hidden;
+    height: 70%;
+    width: 100%;
+    padding: -10px;
+}
+
+.food-desc {
+    height: 30%;
 }

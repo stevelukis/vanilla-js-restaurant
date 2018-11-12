@@ -11,19 +11,19 @@ class Manager extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('manager_model');
+        $this->load->model('Manager_Model');
     }
 
     public function add_category() {
         $params = $this->getPostedObject();
         $category = $params['category'];
-        $success = $this->manager_model->addCategory($category);
+        $success = $this->Manager_Model->addCategory($category);
 
         $this->loadStatusResult($success);
     }
 
     public function get_categories() {
-        $result = $this->manager_model->getCategories();
+        $result = $this->Manager_Model->getCategories();
         $this->loadResult($result);
     }
 
@@ -31,19 +31,19 @@ class Manager extends CI_Controller
         $params = $this->getPostedObject();
 
         $categoryId = $params['id'];
-        $success = $this->manager_model->deleteCategory($categoryId);
+        $success = $this->Manager_Model->deleteCategory($categoryId);
         $this->loadStatusResult($success);
     }
 
     public function update_category() {
         $params = $this->getPostedObject();
-        $success = $this->manager_model->updateCategory($params);
+        $success = $this->Manager_Model->updateCategory($params);
         $this->loadStatusResult($success);
     }
 
     public function add_menu() {
         $params = $this->getPostedObject();
-        $success = $this->manager_model->addMenu($params);
+        $success = $this->Manager_Model->addMenu($params);
         $this->loadStatusResult($success);
     }
 
@@ -51,13 +51,13 @@ class Manager extends CI_Controller
         $params = $this->getPostedObject();
 
         $menuId = $params['id'];
-        $success = $this->manager_model->deleteMenu($menuId);
+        $success = $this->Manager_Model->deleteMenu($menuId);
         $this->loadStatusResult($success);
     }
 
     public function update_menu() {
         $params = $this->getPostedObject();
-        $success = $this->manager_model->updateMenu($params);
+        $success = $this->Manager_Model->updateMenu($params);
         $this->loadStatusResult($success);
     }
 

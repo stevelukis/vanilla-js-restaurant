@@ -5,7 +5,7 @@ class Cashier extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model("cashier_model");
+        $this->load->model("Cashier_Model");
     }
 
     public function get_orders()
@@ -14,7 +14,7 @@ class Cashier extends CI_Controller
 
         $id = $params['table_number'];
 
-        $result = $this->cashier_model->getOrders($id);
+        $result = $this->Cashier_Model->getOrders($id);
         $this->loadResult($result);
     }
 
@@ -24,7 +24,7 @@ class Cashier extends CI_Controller
 
         $userId = $params['id'];
 
-        $result = $this->cashier_model->updateUser($userId);
+        $result = $this->Cashier_Model->updateUser($userId);
         $this->loadStatusResult($result);
     }
 

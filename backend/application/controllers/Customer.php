@@ -5,12 +5,12 @@ class Customer extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('customer_model');
+        $this->load->model('Customer_Model');
     }
 
     public function menu()
     {
-        $result = $this->customer_model->getMenu();
+        $result = $this->Customer_Model->getMenu();
         $this->loadResult($result);
     }
 
@@ -18,7 +18,7 @@ class Customer extends CI_Controller
         $params = $this->getPostedObject();
         $userId = $params['user_id'];
 
-        $result = $this->customer_model->getOrderStatus($userId);
+        $result = $this->Customer_Model->getOrderStatus($userId);
         $this->loadResult($result);
     }
 
@@ -28,7 +28,7 @@ class Customer extends CI_Controller
         $timestamp = $params['timestamp'];
         $tableNumber = $params['table_number'];
 
-        $this->customer_model->registerUser($timestamp, $tableNumber);
+        $this->Customer_Model->registerUser($timestamp, $tableNumber);
 
         $this->loadStatusResult();
     }
@@ -37,7 +37,7 @@ class Customer extends CI_Controller
     {
         $params = $this->getPostedObject();
 
-        $result = $this->customer_model->addOrder($params);
+        $result = $this->Customer_Model->addOrder($params);
         $this->loadStatusResult($result);
     }
 

@@ -5,12 +5,12 @@ class Chef extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('chef_model');
+        $this->load->model('Chef_Model');
     }
 
     public function get_orders()
     {
-        $result = $this->chef_model->getOrders();
+        $result = $this->Chef_Model->getOrders();
         $this->loadResult($result);
     }
 
@@ -30,7 +30,7 @@ class Chef extends CI_Controller
 
         $orderId = $params['id'];
 
-        $result = $this->chef_model->updateOrder($orderId, $in_progress);
+        $result = $this->Chef_Model->updateOrder($orderId, $in_progress);
         $this->loadStatusResult($result);
     }
 

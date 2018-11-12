@@ -21,10 +21,13 @@ class Chef_Model extends CI_Model
 
         foreach ($orders as $order) {
             $menu = $this->db->get_where('menu', array('id' => $order['menu_id']))->row_array();
+            $tableNumber = $this->db->get_where('user', array('id' => $order['user_id']))->row_array()['table_number'];
 
             $order['menu_id'] = $menu['name'];
             $order['menu_name'] = $order['menu_id'];
             unset($order['menu_id']);
+
+            $order['table_number'] = $tableNumber;
 
             array_push($result, $order);
         }

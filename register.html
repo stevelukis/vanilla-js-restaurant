@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:v-on="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+
+<div>
+    <h2>Register Table</h2>
+
+    <div id="form">
+        <input type="text" placeholder="Table number" v-model="tableNumber"/>
+        <button v-on:click="onRegister">Register</button>
+    </div>
+
+    <h1 id="successRegister" style="visibility: hidden">Success!</h1>
+</div>
+
+<script>
+    let vm = new Vue({
+        el: '#form',
+        data: {
+            tableNumber: ''
+        },
+        methods: {
+            onRegister: function () {
+                localStorage.setItem("tableNumber", this.tableNumber);
+                document.getElementById('successRegister').style.visibility = 'visible';
+            }
+        }
+    })
+</script>
+
+</body>
+</html>

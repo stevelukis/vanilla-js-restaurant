@@ -13,27 +13,26 @@ html {
 
 div.comelo {
     background-image: linear-gradient(to right, #FF0000, #FF8000);
-    height: 15%;
+    width: 100%;
 }
 
 h1.comelo {
+    font-size: 68px;
+    padding: 2px;
     color: #fff;
     font-family: comelo, serif;
 }
 
 div.order-list {
+    color: white;
     overflow: scroll;
     background: #333030;
-}
-
-p.order-list {
-    color: white;
 }
 
 div.food-beverage {
     background: #fff;
     box-shadow: 0 2px 8px #888888;
-    height: 18.2%;
+    overflow: hidden;
 }
 
 .food {
@@ -46,7 +45,6 @@ h3.food {
 }
 
 .menu-list {
-    height: 85%;
     overflow: scroll;
     padding: 12px;
 }
@@ -56,19 +54,36 @@ a.food-tab {
     color: black;
 }
 
-.menu-card {
-    height: 200px;
-    box-shadow: 0 2px 8px #888888;
+.card {
+    margin-bottom: 6px;
 }
 
-.food-image {
-    overflow: hidden;
-    height: 70%;
+.triangle-right {
+    width: 0;
+    height: 0;
+    border-top: 50px solid transparent;
+    border-left: 50px solid #555;
+}
+
+.card-body {
+    padding: 0;
+    margin: 0;
+}
+
+.menu-desc {
+    margin: 0;
+}
+
+.min-btn {
+    color: #fff;
+    background: #FF8000;
     width: 100%;
-    padding: -10px;
+    border-radius: 0;
 }
 
-.food-desc {
-    height: 30%;
+.plus-btn {
+    color: #fff;
+    background: #FF8000;
+    width: 100%;
+    border-radius: 0;
 }
-

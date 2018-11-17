@@ -3,11 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <link rel="stylesheet" href="css/css-chef.css">
 </head>
 <body>
 
-<h1>List Makanan</h1>
-<div id="data"></div>
+<div class="main-panel">
+    <div class="content-wrapper">
+        <h1>List Pesanan</h1>
+        <div id="data" class = "row">
+
+        </div>
+    </div>
+</div>
 
 <script>
 
@@ -20,14 +28,39 @@
         for(var i = 0; i < response.length; i++){
             let orderID = response[i]['id'];
             var outputOrder = '';
-            outputOrder += '<div><h3>Table Number:';
-            outputOrder += '<span>' + response[i]["table_number"] + '</span></h3>';
-            outputOrder += '<p><span> ' + response[i]["quantity"] + '</span>';
-            outputOrder += '<span> ' + response[i]["menu_name"] + '</span>';
-            outputOrder += '<span> ' + response[i]["cooked_status"] + '</span>';
-            outputOrder += ' <button onclick="inProgress('+ orderID + ')">In Progress</button>';
-            outputOrder += ' <button onclick="orderDone('+ orderID + ')">Done</button>';
-            outputOrder += '<br></div>';
+            var cookedStatus = '';
+            if(response[i]["cooked_status"] === 'not_yet') cookedStatus = 'New';
+            else cookedStatus = 'In Progress';
+
+            outputOrder +=  '<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 grid-margin stretch-card">' +
+                             '<div class="card card-statistics">' +
+                              '<div class="card-header">' +
+                               '<div class="clearfix">' +
+                                '<div class="float-left">' +
+                                 '<h4 class="font-weight-medium text-left mb-0 mt-2 ml-2">' +
+                                  'Table Number : ' + response[i]["table_number"] + '</h4>' +
+                                '</div>' +
+                                '<div class="float-right">' +
+                                 '<p class="text-muted text-right mt-3 mb-0 ml-2">' +
+                                  cookedStatus + '</p>' +
+                                '</div> <br>' +
+                                '<div class="card-body">' +
+                                 '<div class="float-left">' +
+                                  '<h4 class="font-weight-medium text-left mb-4">' +
+                                   response[i]["quantity"] + '<span class="pl-4">' +
+                                   response[i]["menu_name"] + '</span></h4>' +
+                                 '</div>' +
+                                '</div>' +
+                                '<div class="float-right mb-4">' +
+                                 '<button class="btn btn-warning btn-fw m-1" onclick="inProgress(\'+ orderID + \')">' +
+                                 'In Progress</button>' +
+                                 '<button class="btn btn-success btn-fw m-1" onclick="orderDone(\'+ orderID + \')">' +
+                                 'Done</button>' +
+                                '</div>' +
+                               '</div>' +
+                              '</div>' +
+                             '</div>' +
+                            '</div>';
             document.getElementById('data').innerHTML += outputOrder;
         }
     });

@@ -26,8 +26,16 @@ class Manager_Model extends CI_Model
         return $this->update('category', $category, 'id', $category['id']);
     }
 
+
+    //todo
     public function deleteCategory($categoryId) {
-        $this->delete('category', array('id' => $categoryId));
+        $menuSample = $this->db->get_where('menu', array('category_id' => $categoryId))->row_array();
+
+        if ($menuSample == null) {
+            return $this->delete('category', array('id' => $categoryId));
+        } else {
+            return FALSE;
+        }
     }
 
     public function addMenu($menu) {

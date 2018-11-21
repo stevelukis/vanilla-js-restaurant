@@ -9,7 +9,7 @@ class Cashier_Model extends CI_Model
 
     public function getOrders($tableNumber)
     {
-        $userId = $this->db->get('user', array(
+        $userId = $this->db->get_where('user', array(
             'table_number' => $tableNumber,
             'paid' => 'no'
         ))->row_array()['id'];
@@ -23,6 +23,7 @@ class Cashier_Model extends CI_Model
             $order['menu_id'] = $menu['name'];
             $order['menu_name'] = $order['menu_id'];
             unset($order['menu_id']);
+            unset($order['cooked_status']);
 
             $order['price'] = $menu['price'];
 

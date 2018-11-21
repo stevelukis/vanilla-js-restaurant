@@ -35,7 +35,11 @@ class Customer_Model extends CI_Model
         foreach ($menu as $item) {
             $tempCategoryId = $item['category_id'];
             unset($item['category_id']);
-            $item['category'] = $categories[$tempCategoryId];
+            if (array_key_exists($tempCategoryId, $categories)) {
+                $item['category'] = $categories[$tempCategoryId];
+            } else {
+                $item['category'] = "";
+            }
             array_push($result, $item);
         }
         return $result;

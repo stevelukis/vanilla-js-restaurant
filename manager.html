@@ -61,7 +61,7 @@
 											<td><pre>Gambar        <input id="gambar url" type="text" name=""></pre></td>
 
 										</tr>
-										<tr>
+										<tr id = "kategori">
 											<td><pre>KATEGORI      <select name="kategori" id="kategori input">
 												</select></pre></td>
 
@@ -147,18 +147,19 @@
 	function initialize(){
 		sendPost(url["getMenu"], {}, function(response){
 			list = response;
-		});
-		sendPost(url["getCategory"], {}, function(response){
-			let text = '';
-			let text1 = '';
-			response.forEach(function (item){
-				text += `<li><a id="${item["id"]}" onclick="select(${item["id"]})">${item["name"]}</a></li>\n`;
-				text1 += `<option value="${item["id"]}">${item["name"]}</option>`;
+			sendPost(url["getCategory"], {}, function(response){
+				let text = '';
+				let text1 = '';
+				response.forEach(function (item){
+					text += `<li><a id="${item["id"]}" onclick="select(${item["id"]})">${item["name"]}</a></li>\n`;
+					text1 += `<option value="${item["id"]}">${item["name"]}</option>`;
+				});
+				document.getElementById("category").innerHTML = text;
+				document.getElementById("kategori input").innerHTML = text1;
+				select(response[0]["id"]);
 			});
-			document.getElementById("category").innerHTML = text;
-			document.getElementById("kategori input").innerHTML = text1;
-			select(response[0]["id"]);
 		});
+		
 
 
 	}
@@ -181,27 +182,34 @@
 
 	function addCategory(){
 		let data = {"category":document.getElementById("categoryNameField").value};
-		console.log(data);
-		sendPost(url["addCategory"], data, function(response){
-			alert("add success");
-			location.reload();
+		checkFullyFilled(data,function(){
+			sendPost(url["addCategory"], data, function(response){
+				alert("add success");
+				location.reload();
+			});
 		});
 	}
 	function updateCategory(){
 		let data = {
 			"id":document.getElementsByClassName("selected")[0].id,
-			"category":document.getElementById("categoryNameField").value
+			"name":document.getElementById("categoryNameField").value
 		};
-		sendPost(url["updateCategory"], data, function(response){
-			alert("update success");
-			location.reload();
+		checkFullyFilled(data,function(){
+			sendPost(url["updateCategory"], data, function(response){
+				alert("update success");
+				location.reload();
+			});
 		});
 	}
 	function deleteCategory(){
 		let data = {"id":document.getElementsByClassName("selected")[0].id};
 		sendPost(url["deleteCategory"], data, function(response){
-			alert("delete success");
-			location.reload();
+			if(response["status"] === "fail")
+				alert("gagal menghapus, kategori tidak kosong");
+			else{
+				alert("delete success");
+				location.reload();
+			}
 		});
 	}
 
@@ -243,6 +251,8 @@
 		document.getElementById('gambar url').value = list[index]["image_url"];
 		document.getElementById('nama input').value = list[index]["name"];
 		document.getElementById('harga input').value = list[index]["price"];
+		document.getElementById('kategori').style.display = "inline";
+		document.getElementById('kategori input').value = document.getElementsByClassName("selected")[0].id;
 		document.getElementById('save').setAttribute("onclick",`updateMenu(${index})`);
 		document.getElementById('delete').setAttribute("onclick",`deleteMenu(${index})`);
 		modal.style.display = "block";
@@ -254,6 +264,7 @@
 		document.getElementById('gambar url').value = "";
 		document.getElementById('nama input').value = "";
 		document.getElementById('harga input').value = "";
+		document.getElementById('kategori').style.display = "none";
 		document.getElementById('save').setAttribute("onclick",`addMenu()`);
 		modal.style.display = "block";
 	}
@@ -265,22 +276,42 @@
 			"price": document.getElementById('harga input').value,
 			"image_url": document.getElementById('gambar url').value
 		};
-		sendPost(url["updateMenu"], data, function(response){
-			alert("update success");
-			location.reload();
-		})
+		checkFullyFilled(data, function(data){
+				sendPost(url["updateMenu"], data, function(response){
+					alert("update success");
+					location.reload();
+				});
+			}
+		);
 	}
 	function addMenu(index){
 		data = {
 			"name": document.getElementById('nama input').value,
-			"category_id": document.getElementById('kategori input').value,
+			"category_id": document.getElementsByClassName('selected')[0].id,
 			"price": document.getElementById('harga input').value,
 			"image_url": document.getElementById('gambar url').value
 		};
-		sendPost(url["addMenu"], data, function(response){
-			alert("add success");
-			location.reload();
-		})
+		checkFullyFilled(data, function(){
+				sendPost(url["addMenu"], data, function(response){
+					alert("add success");
+					location.reload();
+				});
+			}
+		);
+	}
+	function checkFullyFilled(data, callback){
+		let fullyFilled = true;
+		for(var key in data){
+			if(data[key] === ""){
+				fullyFilled = false;
+				break;
+			}
+		};
+		if(fullyFilled){
+			callback(data);
+		}else{
+			alert("data tidak lengkap");
+		}
 	}
 	function deleteMenu(index){
 		data = {

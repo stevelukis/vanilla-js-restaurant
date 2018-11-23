@@ -21,7 +21,7 @@
         </a>
       </div>
     </nav>
-
+    <center><h1 id = "error"></h1></center>
     <div style="position: absolute; margin-left: 29%; margin-top: 5%" id="Bill">
         <h1 style="text-align: center;">TABLE <span id="tableNumber"></span></h1>
         <table id="Nilai" cellpadding="0" cellspacing="0">
@@ -86,51 +86,61 @@
 
         function confirmPayment(){
             sendPost(urlSetPaid,{"id": id},function(response){
-                alert(`success id: ${id}`);
+				console.log(response);
+                alert("payment success");
                 document.getElementById("Bill").style.display = "none";
             });
         }
 
         function getBill(){
             let tableNumber = document.getElementById("idInput").value;
-            let data = { "table_number": tableNumber };
-            sendPost(urlGetBill, data, function(response){
-                document.getElementById("date").innerHTML = (new Date()).toString().split(' ').splice(1,3).join(' ');
-                document.getElementById("tableNumber").innerHTML = tableNumber;
-                id = response[0]["user_id"];
-				document.getElementById("customerId").innerHTML = id;
-                let total = 0;
-                let text = `
-                <tr class="heading">
-                    <td>Item</td>
-                    <td>Quantity</td>
-                    <td>Price</td>
-                </tr>`;
-                response.forEach(function(item){
-                    total += item["price"]*item["quantity"];
-                    text += `
-                    <tr class="item">
-                        <td>${item["menu_name"]}</td>
-                        <td>${item["quantity"]}</td>
-                        <td>Rp. ${(item["price"]*item["quantity"]).toLocaleString('en')}</td>
-                    </tr>`
-                });
-                text += `
-                <tr class="total">
-                    <td></td>
-                    <td>Total:</td>
-                    <td>Rp. ${total.toLocaleString('en')}</td>
-                </tr>
-                <tr class="total">
-                    <td></td>
-                    <td></td>
-                    <td>
+            if(tableNumber !== ""){
+                let data = { "table_number": tableNumber };
+                sendPost(urlGetBill, data, function(response){
+                    if(response[0] !== undefined){
+                        document.getElementById("date").innerHTML = (new Date()).toString().split(' ').splice(1,3).join(' ');
+                        document.getElementById("tableNumber").innerHTML = tableNumber;
+                        id = response[0]["user_id"];
+                        document.getElementById("customerId").innerHTML = id;
+                        let total = 0;
+                        let text = `
+                        <tr class="heading">
+                        <td>Item</td>
+                        <td>Quantity</td>
+                        <td>Price</td>
+                        </tr>`;
+                        response.forEach(function(item){
+                            total += item["price"]*item["quantity"];
+                            text += `
+                            <tr class="item">
+                            <td>${item["menu_name"]}</td>
+                            <td>${item["quantity"]}</td>
+                            <td>Rp. ${(item["price"]*item["quantity"]).toLocaleString('en')}</td>
+                            </tr>`
+                        });
+                        text += `
+                        <tr class="total">
+                        <td></td>
+                        <td>Total:</td>
+                        <td>Rp. ${total.toLocaleString('en')}</td>
+                        </tr>
+                        <tr class="total">
+                        <td></td>
+                        <td></td>
+                        <td>
                         <button type="button" onclick="confirmPayment()">Pay</button>
-                    </td>
-                </tr>`;
-                document.getElementById("isi").innerHTML = text;
-                document.getElementById("Bill").style.display = "inline";
-            });
+                        </td>
+                        </tr>`;
+                        document.getElementById("isi").innerHTML = text;
+                        document.getElementById("Bill").style.display = "inline";
+                        document.getElementById("error").innerHTML = "";
+                    }else{
+                        document.getElementById("error").innerHTML = "data tak ditemukan";
+                    }
+                });
+            }else{
+                document.getElementById("error").innerHTML = "Nomor Meja tak boleh kosong";
+            }
         }
     </script>
 </body>

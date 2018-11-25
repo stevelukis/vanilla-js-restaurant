@@ -226,6 +226,7 @@
                 });
             }
             function orderProcessed(){
+                generateCurrentOrder();
                 document.getElementById("currentOrder").style.display = "inline";
                 window.setInterval(function(){
                     generateCurrentOrder();

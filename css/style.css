@@ -28,7 +28,10 @@ div.order-list {
     overflow: scroll;
     background: #333030;
 }
-
+.setHeight{
+    height: 30px;
+    width:100%;
+}
 div.food-beverage {
     background: #fff;
     box-shadow: 0 2px 8px #888888;
@@ -48,8 +51,10 @@ h3.food {
     overflow: scroll;
     padding: 12px;
 }
-
-a.food-tab {
+.selected h3{
+    background-color: orange;
+}
+a {
     text-decoration: none;
     color: black;
 }

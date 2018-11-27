@@ -46,58 +46,6 @@
                                             <button class="edit-btn btn" data-target="#editMenu" data-toggle="modal">
                                                 <h1>Edit</h1>
                                             </button>
-
-                                            <!--Modal Edit-->
-                                            <div class="modal" tabindex="-1" id="editMenu">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h4 class="modal-title">Edit</h4>
-                                                            <button class="close" data-dismiss="modal">&times;</button>
-                                                        </div>
-
-                                                        <div class="modal-body">
-                                                            <form>
-                                                                <div class="form-group">
-                                                                    <label>Nama</label>
-                                                                    <input type="text" class="form-control" placeholder="Nama menu makanan" id="editNamaMakanan">
-                                                                </div>
-
-                                                                <div class="form-group">
-                                                                    <label>Gambar</label>
-                                                                    <input type="text" class="form-control" placeholder="Nama menu makanan" id="editGambarMakanan">
-                                                                </div>
-
-                                                                <div class="form-group">
-                                                                    <label>Kategori</label>
-                                                                    <div class="dropdown">
-                                                                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
-                                                                            <span class="caret"></span></button>
-                                                                        <ul class="dropdown-menu">
-                                                                            <li><a href="#">HTML</a></li>
-                                                                            <li><a href="#">CSS</a></li>
-                                                                            <li><a href="#">JavaScript</a></li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="form-group">
-                                                                    <label>Harga</label>
-                                                                    <input type="text" class="form-control" placeholder="Nama menu makanan" id="editHargaMakanan">
-                                                                </div>
-
-                                                            </form>
-                                                        </div>
-
-                                                        <div class="modal-footer">
-                                                            <button class="btn btn-danger">Delete</button>
-                                                            <button class="btn btn-primary">Save</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
                                         </div>
                                     </div>
 
@@ -106,26 +54,6 @@
                                             <button class="delete-btn btn" data-target="#deleteMenu" data-toggle="modal">
                                                 <h1>Delete</h1>
                                             </button>
-
-                                            <!--Delete Menu Modal-->
-                                            <div class="modal" tabindex="-1" id="deleteMenu">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h4 class="modal-title">Add</h4>
-                                                            <button class="close" data-dismiss="modal">&times;</button>
-                                                        </div>
-
-                                                        <div class="modal-body">
-                                                            <p>Yakin igin menghapus?</p>
-                                                        </div>
-
-                                                        <div class="modal-footer">
-                                                            <button class="btn btn-primary">Delete</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
 
                                         </div>
                                     </div>
@@ -146,42 +74,6 @@
                                                 +
                                             </button>
 
-                                            <!--Modal Add Menu-->
-                                            <div class="modal" tabindex="-1" id="addNewMenu">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h4 class="modal-title">Add</h4>
-                                                            <button class="close" data-dismiss="modal">&times;</button>
-                                                        </div>
-
-                                                        <div class="modal-body">
-                                                            <form>
-                                                                <div class="form-group">
-                                                                    <label>Nama</label>
-                                                                    <input type="text" class="form-control" placeholder="Nama menu makanan" id="inputNamaMakanan">
-                                                                </div>
-
-                                                                <div class="form-group">
-                                                                    <label>Gambar</label>
-                                                                    <input type="text" class="form-control" placeholder="Nama menu makanan" id="inputGambarMakanan">
-                                                                </div>
-
-                                                                <div class="form-group">
-                                                                    <label>Harga</label>
-                                                                    <input type="text" class="form-control" placeholder="Nama menu makanan" id="inputHargaMakanan">
-                                                                </div>
-
-                                                            </form>
-                                                        </div>
-
-                                                        <div class="modal-footer">
-                                                            <button class="btn btn-primary">Save</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
                                         </div>
                                     </div>
                                 </div>
@@ -199,6 +91,193 @@
                         <h1 class="comelo">
                             comelo
                         </h1>
+                    </div>
+                </div>
+
+                <div class="row h-75 menu-category-list">
+
+                </div>
+
+                <div class="row h-auto">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-4">
+                                <button class="edit-btn btn" data-target="#addMenuCategory" data-toggle="modal">
+                                    <h1>Add</h1>
+                                </button>
+                            </div>
+
+                            <div class="col-4">
+                                <button class="edit-btn btn" data-target="#editMenuCategory" data-toggle="modal">
+                                    <h1>Edit</h1>
+                                </button>
+                            </div>
+
+                            <div class="col-4">
+                                <button class="edit-btn btn" data-target="#deleteMenu" data-toggle="modal">
+                                    <h1>Delete</h1>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Modal Edit-->
+            <div class="modal" tabindex="-1" id="editMenu">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Edit</h4>
+                            <button class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label>Nama</label>
+                                    <input type="text" class="form-control" placeholder="Nama menu makanan" id="editNamaMakanan">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Gambar</label>
+                                    <input type="text" class="form-control" placeholder="Nama menu makanan" id="editGambarMakanan">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Kategori</label>
+                                    <div class="dropdown">
+                                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
+                                            <span class="caret"></span></button>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">HTML</a></li>
+                                            <li><a href="#">CSS</a></li>
+                                            <li><a href="#">JavaScript</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Harga</label>
+                                    <input type="text" class="form-control" placeholder="Nama menu makanan" id="editHargaMakanan">
+                                </div>
+
+                            </form>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button class="btn btn-danger">Delete</button>
+                            <button class="btn btn-primary">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Delete Menu Modal-->
+            <div class="modal" tabindex="-1" id="deleteMenu">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Add</h4>
+                            <button class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <div class="modal-body">
+                            <p>Yakin igin menghapus?</p>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button class="btn btn-danger">Ya</button>
+                            <button class="btn btn-primary">Tidak</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Modal Add Menu-->
+            <div class="modal" tabindex="-1" id="addNewMenu">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Add</h4>
+                            <button class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label>Nama</label>
+                                    <input type="text" class="form-control" placeholder="Nama menu makanan" id="inputNamaMakanan">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Gambar</label>
+                                    <input type="text" class="form-control" placeholder="Nama menu makanan" id="inputGambarMakanan">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Harga</label>
+                                    <input type="text" class="form-control" placeholder="Nama menu makanan" id="inputHargaMakanan">
+                                </div>
+
+                            </form>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button class="btn btn-primary">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Add Category Modal-->
+            <div class="modal" tabindex="-1" id="addMenuCategory">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Add</h4>
+                            <button class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label>Nama</label>
+                                    <input type="text" class="form-control" placeholder="Nama menu makanan" id="addMenuCategoryName">
+                                </div>
+
+                            </form>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button class="btn btn-primary">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Edit Category Modal-->
+            <div class="modal" tabindex="-1" id="editMenuCategory">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Edit</h4>
+                            <button class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label>Nama</label>
+                                    <input type="text" class="form-control" placeholder="Nama menu makanan" id="editMenuCategoryName">
+                                </div>
+
+                            </form>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button class="btn btn-primary">Edit</button>
+                        </div>
                     </div>
                 </div>
             </div>

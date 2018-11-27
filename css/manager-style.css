@@ -28,6 +28,11 @@ h1.comelo {
     padding: 12px;
 }
 
+.menu-category-list {
+    overflow: scroll;
+    background-color: #4e4a4a;
+}
+
 .card {
     height: 300px;
     margin-bottom: 6px;

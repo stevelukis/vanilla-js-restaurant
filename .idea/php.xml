@@ -32,4 +32,5 @@
       <path value="$PROJECT_DIR$/vendor/phpunit/php-code-coverage" />
     </include_path>
   </component>
+  <component name="PhpProjectSharedConfiguration" php_language_level="5.3.0" />
 </project>

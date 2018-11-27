@@ -1,0 +1,59 @@
+@font-face {
+    font-family: "comelo";
+    src: url(../font/comelo.ttf);
+}
+
+html, body, .wrapper, .row, .container-fluid {
+    height: 100%;
+}
+
+html {
+    overflow: hidden;
+}
+
+div.comelo {
+    background-image: linear-gradient(to right, #FF0000, #FF8000);
+    width: 100%;
+}
+
+h1.comelo {
+    font-size: 68px;
+    padding: 2px;
+    color: #fff;
+    font-family: comelo, serif;
+}
+
+.menu-list {
+    overflow: scroll;
+    padding: 12px;
+}
+
+.card {
+    height: 300px;
+    margin-bottom: 6px;
+}
+
+.edit-btn {
+    color: #fff;
+    background: #FF8000;
+    width: 100%;
+    border-radius: 0;
+    border-color: #4F5155;
+}
+
+.delete-btn {
+    color: #fff;
+    background: #FF8000;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    border-color: #4F5155;
+}
+
+.add-btn {
+    color: #fff;
+    background: #FF8000;
+    width: 100%;
+    border-radius: 0;
+    font-size: 120px;
+}

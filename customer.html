@@ -48,7 +48,8 @@
                             <div id="orderList" class="order-btn text-center" style="width: 100%;">
                                 <button onclick="processOrder()" id="button" class="order-btn btn" style="padding-left: 12px; padding-right: 12px" disabled>
                                     <p style="padding-left: 12px; padding-right: 12px">ORDER</p>
-                                </button></div>
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -68,6 +69,7 @@
                 "getOrderStatus" : "http://stevelukis.com/smart-restaurant/backend/customer/order_status",
                 "order" : "http://stevelukis.com/smart-restaurant/backend/customer/order"
             }
+            let table_number = "";
             let user_id = "";
             let list = {};
             function sendPost(url, data, callback){
@@ -83,24 +85,30 @@
             }
 
             function initialize(){
+                table_number = window.localStorage.getItem("table_number");
                 user_id = window.localStorage.getItem("user_id");
-                if(user_id !== null){
-                    sendPost(url["getMenu"], {}, function(response){
-                        list = response;
-                        sendPost(url["getCategory"], {}, function(response){
-                            let text = '';
-                            response.forEach(function (item){
-                                text += `
-                                <div class="col-3 text-center">
-                                <a id="${item["name"]}" onclick="select('${item['name']}')">
-                                <h3>${item['name']}</h3>
-                                </a>
-                                </div>`;
+                if(table_number !== null){
+                    if(user_id !== null){
+                        sendPost(url["getMenu"], {}, function(response){
+                            list = response;
+                            sendPost(url["getCategory"], {}, function(response){
+                                let text = '';
+                                response.forEach(function (item){
+                                    text += `
+                                    <div class="col-3 text-center">
+                                    <a id="${item["name"]}" onclick="select('${item['name']}')">
+                                    <h3>${item['name']}</h3>
+                                    </a>
+                                    </div>`;
+                                });
+                                document.getElementById("kategoriContainer").innerHTML = text;
+                                select(response[0]["name"]);
                             });
-                            document.getElementById("kategoriContainer").innerHTML = text;
-                            select(response[0]["name"]);
                         });
-                    });
+                    }else{
+                        window.localStorage.setItem("user_id") = (new Date()).getTime();
+                        window.location.href = "customer.html";
+                    }
                 }else{
                     alert("silahkan registrasi meja terlebih dahulu");
                     window.location.href = "register.html";
@@ -231,6 +239,10 @@
                 window.setInterval(function(){
                     generateCurrentOrder();
                 }, 5000);
+            }
+            function logout(){
+                window.localStorage.removeItem("user_id");
+                location.reload();
             }
             initialize();
         </script>

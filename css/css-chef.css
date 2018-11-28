@@ -12125,10 +12125,13 @@ button.bg-dark:focus {
         align-self: stretch !important; } }
 
 .float-left {
-    float: left !important; }
+    float: left !important;
+    width : 100%;
+}
 
 .float-right {
-    float: right !important; }
+    float: right !important;
+}
 
 .float-none {
     float: none !important; }
@@ -15353,7 +15356,7 @@ pre {
 /* Cards */
 .card {
     border: 0;
-    border-radius: 2px; }
+    border-radius: 10px; }
 .card .card-body {
     padding: 1.88rem 1.81rem; }
 .card .card-body + .card-body {

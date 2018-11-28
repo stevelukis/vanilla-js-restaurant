@@ -72,6 +72,7 @@
             let table_number = "";
             let user_id = "";
             let list = {};
+            let selected = "";
             function sendPost(url, data, callback){
                 let xhr = new XMLHttpRequest();
                 xhr.open("POST", url, true);
@@ -116,52 +117,54 @@
             }
 
             function select(categoryName){
-                let selected = document.getElementsByClassName("selected");
-                if(selected.length !== 0){
-                    selected[0].setAttribute("class","");
-                }
-                selected = document.getElementById(categoryName);
-                selected.setAttribute("class","selected");
-                let text = '';
-                list.forEach(function(item, index){
-                    if(item["category"] == categoryName){
-                        text +=`
-                        <div class="col-6">
-                            <div class="card">
-                                <img class="card-img-top h-75" src="${item["image_url"]}" alt="${item["name"]}">
-                                <div class="container h-25">
-                                    <div class="row">
-                                        <div class="col-2 text-center">
-                                            <div class="row">
-                                                <button onclick="minus(${index})" class="min-btn btn">
-                                                    <h1>-</h1>
-                                                </button>
-                                            </div>
-                                        </div>
+            	if(selected !== categoryName){
+            		if(selected !== ""){
+            			document.getElementById(selected).setAttribute("class","");
+            		}
+            		selected = categoryName;
+            		selectedObj = document.getElementById(selected);
+            		selectedObj.setAttribute("class","selected");
+            		let text = '';
+            		list.forEach(function(item, index){
+            			if(item["category"] == categoryName){
+            				text +=`
+            				<div class="col-6">
+            				<div class="card">
+            				<img class="card-img-top h-75" src="${item["image_url"]}" alt="${item["name"]}">
+            				<div class="container h-25">
+            				<div class="row">
+            				<div class="col-2 text-center">
+            				<div class="row">
+            				<button onclick="minus(${index})" class="min-btn btn">
+            				<h1>-</h1>
+            				</button>
+            				</div>
+            				</div>
 
-                                        <div class="col-8 text-center">
-                                            <div class="row">
-                                                <div class="card-body">
-                                                    <p class="menu-desc">Rp. ${item["price"]}</p>
-                                                    <h3 class="menu-desc">${item["name"]}</h3>
-                                                </div>
-                                            </div>
-                                        </div>
+            				<div class="col-8 text-center">
+            				<div class="row">
+            				<div class="card-body">
+            				<p class="menu-desc">Rp. ${item["price"]}</p>
+            				<h3 class="menu-desc">${item["name"]}</h3>
+            				</div>
+            				</div>
+            				</div>
 
-                                        <div class="col-2 text-center">
-                                            <div class="row">
-                                                <button onclick="plus(${index})" class="plus-btn btn">
-                                                    <h1>+</h1>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>`;
-                    }
-                });
-                document.getElementById("menuList").innerHTML = text;
+            				<div class="col-2 text-center">
+            				<div class="row">
+            				<button onclick="plus(${index})" class="plus-btn btn">
+            				<h1>+</h1>
+            				</button>
+            				</div>
+            				</div>
+            				</div>
+            				</div>
+            				</div>
+            				</div>`;
+            			}
+            		});
+            		document.getElementById("menuList").innerHTML = text;
+            	}
             }
 
             function plus(index){

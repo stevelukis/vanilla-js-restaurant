@@ -33,54 +33,6 @@
             <div class="col-9" id="left">
 
                 <div id="menuList" class="row menu-list">
-
-                    <div class="col-6">
-
-                        <div class="card">
-                            <img class="card-img-top h-75" src="image/pizza.jpg" alt="Card image cap">
-                            <div class="container h-25">
-
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="row">
-                                            <button class="edit-btn btn" data-target="#editMenu" data-toggle="modal">
-                                                <h1>Edit</h1>
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-6">
-                                        <div class="row">
-                                            <button class="delete-btn btn" data-target="#deleteMenu" data-toggle="modal">
-                                                <h1>Delete</h1>
-                                            </button>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-6">
-
-                        <div class="card">
-                            <div class="container-fluid">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="row">
-                                            <button class="add-btn btn btn-primary btn-sm" data-target="#addNewMenu" data-toggle="modal">
-                                                +
-                                            </button>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
 
@@ -94,8 +46,7 @@
                     </div>
                 </div>
 
-                <div class="row h-75 menu-category-list">
-
+                <div id="category" class="row h-75 menu-category-list">
                 </div>
 
                 <div class="row h-auto">
@@ -103,19 +54,19 @@
                         <div class="row">
                             <div class="col-4">
                                 <button class="edit-btn btn" data-target="#addMenuCategory" data-toggle="modal">
-                                    <h1>Add</h1>
+                                    <h1 onclick = "openAddCategory()" >Add</h1>
                                 </button>
                             </div>
 
                             <div class="col-4">
                                 <button class="edit-btn btn" data-target="#editMenuCategory" data-toggle="modal">
-                                    <h1>Edit</h1>
+                                    <h1 onclick = "openUpdateCategory()">Edit</h1>
                                 </button>
                             </div>
 
                             <div class="col-4">
                                 <button class="edit-btn btn" data-target="#deleteMenu" data-toggle="modal">
-                                    <h1>Delete</h1>
+                                    <h1 onclick ="openDeleteCategory()">Delete</h1>
                                 </button>
                             </div>
                         </div>
@@ -136,38 +87,32 @@
                             <form>
                                 <div class="form-group">
                                     <label>Nama</label>
-                                    <input type="text" class="form-control" placeholder="Nama menu makanan" id="editNamaMakanan">
+                                    <input type="text" class="form-control" placeholder="Nama menu makanan" id="editNama">
                                 </div>
 
                                 <div class="form-group">
                                     <label>Gambar</label>
-                                    <input type="text" class="form-control" placeholder="Nama menu makanan" id="editGambarMakanan">
+                                    <input type="text" class="form-control" placeholder="Nama menu makanan" id="editGambar">
                                 </div>
 
                                 <div class="form-group">
                                     <label>Kategori</label>
                                     <div class="dropdown">
-                                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
-                                            <span class="caret"></span></button>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="#">HTML</a></li>
-                                            <li><a href="#">CSS</a></li>
-                                            <li><a href="#">JavaScript</a></li>
-                                        </ul>
+                                        <select name="kategori" id="editKategori" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                        </select>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label>Harga</label>
-                                    <input type="text" class="form-control" placeholder="Nama menu makanan" id="editHargaMakanan">
+                                    <input type="text" class="form-control" placeholder="Nama menu makanan" id="editHarga">
                                 </div>
 
                             </form>
                         </div>
 
                         <div class="modal-footer">
-                            <button class="btn btn-danger">Delete</button>
-                            <button class="btn btn-primary">Save</button>
+                            <button id="editButton" class="btn btn-primary">Save</button>
                         </div>
                     </div>
                 </div>
@@ -183,12 +128,12 @@
                         </div>
 
                         <div class="modal-body">
-                            <p>Yakin igin menghapus?</p>
+                            <p>Yakin ingin menghapus?</p>
                         </div>
 
                         <div class="modal-footer">
-                            <button class="btn btn-danger">Ya</button>
-                            <button class="btn btn-primary">Tidak</button>
+                            <button id="deleteButton" class="btn btn-danger" data-dismiss="modal">Ya</button>
+                            <button class="btn btn-primary" data-dismiss="modal">Tidak</button>
                         </div>
                     </div>
                 </div>
@@ -207,31 +152,31 @@
                             <form>
                                 <div class="form-group">
                                     <label>Nama</label>
-                                    <input type="text" class="form-control" placeholder="Nama menu makanan" id="inputNamaMakanan">
+                                    <input type="text" class="form-control" placeholder="Nama menu makanan" id="inputNama" required>
                                 </div>
 
                                 <div class="form-group">
                                     <label>Gambar</label>
-                                    <input type="text" class="form-control" placeholder="Nama menu makanan" id="inputGambarMakanan">
+                                    <input type="text" class="form-control" placeholder="Nama menu makanan" id="inputGambar" required>
                                 </div>
 
                                 <div class="form-group">
                                     <label>Harga</label>
-                                    <input type="text" class="form-control" placeholder="Nama menu makanan" id="inputHargaMakanan">
+                                    <input type="text" class="form-control" placeholder="Nama menu makanan" id="inputHarga" required>
                                 </div>
 
                             </form>
                         </div>
 
                         <div class="modal-footer">
-                            <button class="btn btn-primary">Save</button>
+                            <button onclick="addMenu()" class="btn btn-primary" data-dismiss="modal" type="submit">Save</button>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!--Add Category Modal-->
-            <div class="modal" tabindex="-1" id="addMenuCategory">
+            <div class="modal" tabindex="-1" id="addCategory">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -243,21 +188,21 @@
                             <form>
                                 <div class="form-group">
                                     <label>Nama</label>
-                                    <input type="text" class="form-control" placeholder="Nama menu makanan" id="addMenuCategoryName">
+                                    <input type="text" class="form-control" placeholder="Nama menu makanan" id="addCategoryName">
                                 </div>
 
                             </form>
                         </div>
 
                         <div class="modal-footer">
-                            <button class="btn btn-primary">Add</button>
+                            <button class="btn btn-primary" onClick="addCategory()">Add</button>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!--Edit Category Modal-->
-            <div class="modal" tabindex="-1" id="editMenuCategory">
+            <div class="modal" tabindex="-1" id="editCategory">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -269,14 +214,14 @@
                             <form>
                                 <div class="form-group">
                                     <label>Nama</label>
-                                    <input type="text" class="form-control" placeholder="Nama menu makanan" id="editMenuCategoryName">
+                                    <input type="text" class="form-control" placeholder="Nama menu makanan" id="editCategoryName">
                                 </div>
 
                             </form>
                         </div>
 
                         <div class="modal-footer">
-                            <button class="btn btn-primary">Edit</button>
+                            <button id="editCategoryButton" class="btn btn-primary">Edit</button>
                         </div>
                     </div>
                 </div>
@@ -286,6 +231,252 @@
     </div>
 
 </div>
+<script type="text/javascript">
+    let url = {
+        "getMenu" : "http://stevelukis.com/smart-restaurant/backend/customer/menu",
+        "addMenu" : "http://stevelukis.com/smart-restaurant/backend/manager/add_menu",
+        "updateMenu" : "http://stevelukis.com/smart-restaurant/backend/manager/update_menu",
+        "deleteMenu" : " http://stevelukis.com/smart-restaurant/backend/manager/delete_menu",
+        "getCategory" : "http://stevelukis.com/smart-restaurant/backend/manager/get_categories",
+        "addCategory" : "http://stevelukis.com/smart-restaurant/backend/manager/add_category",
+        "updateCategory" : "http://stevelukis.com/smart-restaurant/backend/manager/update_category",
+        "deleteCategory" : "http://stevelukis.com/smart-restaurant/backend/manager/delete_category"
+    }
+    let list = {};
+    let modal = document.getElementById('myModal');
+    let modalKate = document.getElementById("ModalKate");
+    let selected = "";
+    function sendPost(url, data, callback){
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                callback(JSON.parse(xhr.responseText));
+            }
+        };
+        xhr.send(JSON.stringify(data));
+    }
 
+    function initialize(){
+        sendPost(url["getMenu"], {}, function(response){
+            list = response;
+            sendPost(url["getCategory"], {}, function(response){
+                let text = '';
+                let text1 = '';
+                response.forEach(function (item){
+                    text += `<h3 id="${item["id"]}" onclick="select(${item["id"]})" style = "text-align:center; width:100%">${item["name"]}</h3>\n`;
+                    text1 += `<option value="${item["id"]}">${item["name"]}</option>`;
+                });
+                document.getElementById("category").innerHTML = text;
+                document.getElementById("editKategori").innerHTML = text1;
+                select(response[0]["id"]);
+            });
+        });
+    }
+
+    function select(categoryId){
+        if(selected !== categoryId){
+            if(selected !== ""){
+                document.getElementById(selected).setAttribute("class","");
+            }
+            selected = categoryId;
+            selectedObj = document.getElementById(categoryId);
+            selectedObj.setAttribute("class","selected");
+            categoryName = selectedObj.innerHTML;
+            let text = '';
+            list.forEach(function(item, index){
+                if(item["category"] == categoryName){
+                    text +=`
+                        <div class="col-6" >
+                            <div class="card">
+                                <img class="card-img-top h-75"  src="${item["image_url"]}" alt="${item["name"]}">
+                                <div class="container h-25">
+                                    <div class="row">
+                                        <div class="col-6" >
+                                            <div class="row">
+                                                <button class="edit-btn btn" data-target="#editMenu" data-toggle="modal" onclick="openUpdate(${index})">
+                                                    <h1>Edit</h1>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6" >
+                                            <div class="row">
+                                                <button class="delete-btn btn" data-target="#deleteMenu" data-toggle="modal" onclick="openDelete(${index})">
+                                                    <h1>Delete</h1>
+                                                </button>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>`;
+
+                    // text += `
+                    // <div class="col-md-4 col-sm-6 col-xs-6 col-xxs-12 work-item">
+                    // <a onclick="openUpdate(${index})">
+                    // <img src="${item["image_url"]}" class="img-responsive">
+                    // <h3 class="work-title">${item["name"]}</h3>
+                    // <p id="Harga">Rp. ${item["price"]}</p>
+                    // </a>
+                    // </div>`;
+                }
+            });
+            text += `
+            <div class="col-6" onclick="openAdd()">
+                <div class="card">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="row">
+                                    <button class="add-btn btn btn-primary btn-sm" data-target="#addNewMenu" data-toggle="modal">
+                                                +
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+            document.getElementById("menuList").innerHTML = text;
+        }
+    }
+
+    function openAdd(){
+        document.getElementById("addNewMenu").style.display = "block";
+    }
+    function openUpdate(index){
+        document.getElementById('editGambar').value = list[index]["image_url"];
+        document.getElementById('editNama').value = list[index]["name"];
+        document.getElementById('editHarga').value = list[index]["price"];
+        document.getElementById('editKategori').value = selected;
+        document.getElementById('editButton').setAttribute("onclick",`updateMenu(${index})`);
+        document.getElementById("editMenu").style.display = "block";
+    }
+
+    function openDelete(index){
+        document.getElementById('deleteButton').setAttribute("onclick",`deleteMenu(${index})`);
+        document.getElementById("deleteMenu").style.display = "block";
+    }
+    
+    function openAddCategory(){
+        document.getElementById("addCategory").style.display = "block";
+    }
+
+    function openUpdateCategory(){
+        selectedValue = document.getElementById(selected).innerHTML;
+        document.getElementById('editCategoryName').value = selectedValue;
+        document.getElementById('editCategoryButton').setAttribute("onclick",`updateCategory()`);
+        document.getElementById("editCategory").style.display = "block";
+    }
+    function openDeleteCategory(){
+        document.getElementById('deleteButton').setAttribute("onclick",`deleteCategory()`);
+        document.getElementById("deleteMenu").style.display = "block";
+    }
+    
+
+    function addCategory(){
+        let data = {"category":document.getElementById("addCategoryName").value};
+        checkFullyFilled(data,function(){
+            sendPost(url["addCategory"], data, function(response){
+                alert("add success");
+                location.reload();
+            });
+        });
+    }
+    function updateCategory(){
+        let data = {
+            "id":selected,
+            "name":document.getElementById("editCategoryName").value
+        };
+        checkFullyFilled(data,function(){
+            sendPost(url["updateCategory"], data, function(response){
+                alert("update success");
+                location.reload();
+            });
+        });
+    }
+    function deleteCategory(){
+        let data = {"id":selected};
+        sendPost(url["deleteCategory"], data, function(response){
+            if(response["status"] === "fail")
+                alert("gagal menghapus, kategori tidak kosong");
+            else{
+                alert("delete success");
+                location.reload();
+            }
+        });
+    }
+
+    function updateMenu(index){
+        data = {
+            "id": list[index]["id"],
+            "name": document.getElementById('editNama').value,
+            "category_id": document.getElementById('editKategori').value,
+            "price": document.getElementById('editHarga').value,
+            "image_url": document.getElementById('editGambar').value
+        };
+        checkFullyFilled(data, function(data){
+                sendPost(url["updateMenu"], data, function(response){
+                    alert("update success");
+                    location.reload();
+                });
+            }
+        );
+    }
+    function addMenu(index){
+        data = {
+            "name": document.getElementById('inputNama').value,
+            "category_id": selected,
+            "image_url": document.getElementById('inputGambar').value,
+            "price": document.getElementById('inputHarga').value
+        };
+        checkFullyFilled(data, function(){
+                sendPost(url["addMenu"], data, function(response){
+                    alert("add success");
+                    location.reload();
+                });
+            }
+        );
+    }
+
+    function deleteMenu(index){
+        data = {
+            "id": list[index]["id"]
+        };
+        sendPost(url["deleteMenu"], data, function(response){
+            alert("delete success");
+            location.reload();
+        });
+    }
+    function checkFullyFilled(data, callback){
+        let fullyFilled = true;
+        for(var key in data){
+            if(data[key] === ""){
+                fullyFilled = false;
+                break;
+            }
+        };
+        if(fullyFilled){
+            callback(data);
+        }else{
+            alert("data tidak lengkap");
+        }
+    }
+
+
+    // When the user clicks anywhere outside of the modal, close it
+    initialize();
+    // window.onclick = function(event) {
+    //     if (event.target == modal) {
+    //         modal.style.display = "none";
+    //     }else if (event.target == modalKate) {
+    //         modalKate.style.display = "none";
+    //     }
+    // }
+</script>
 </body>
 </html>

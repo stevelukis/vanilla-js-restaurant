@@ -62,3 +62,7 @@ h1.comelo {
     border-radius: 0;
     font-size: 120px;
 }
+
+.footer-button {
+    padding: 0;
+}

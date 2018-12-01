@@ -53,9 +53,15 @@
 
 <script>
     function onRegister() {
-        localStorage.setItem("table_number", document.getElementById("tableNumber").value);
-        alert("register sukses");
-        window.location.href = "customer.html";
+        let tableNumber = document.getElementById("tableNumber").value;
+        if(tableNumber !== ""){
+            localStorage.setItem("table_number", tableNumber);
+            alert("register sukses");
+            window.location.href = "customer.html";
+        }else{
+            alert("masukkan nomor meja");
+        }
+        
     }
 </script>
 

@@ -24,13 +24,21 @@ h1.comelo {
 }
 
 .menu-list {
-    overflow: scroll;
+    overflow-y: scroll;
     padding: 12px;
 }
 
 .menu-category-list {
-    overflow: scroll;
-    background-color: #4e4a4a;
+
+    background-color: #000;
+}
+.menu-category-list h3 {
+    color: #999;
+    background-color: #333;
+}
+.menu-category-list h3.selected {
+    color: white;
+    background-color: #666;
 }
 
 .card {

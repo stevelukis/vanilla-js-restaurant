@@ -32,6 +32,7 @@ div.order-list {
     height: 30px;
     width:100%;
 }
+
 div.food-beverage {
     background: #fff;
     box-shadow: 0 2px 8px #888888;
@@ -49,8 +50,9 @@ h3.food {
 
 .menu-list {
     overflow: scroll;
-    padding: 12px;
+    padding: 12px 12px 100px 12px;
 }
+
 .selected h3{
     background-color: orange;
 }

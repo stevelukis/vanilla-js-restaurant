@@ -66,3 +66,7 @@ h1.comelo {
 .footer-button {
     padding: 0;
 }
+
+.modal-backdrop {
+    opacity: 0.5 !important;
+}

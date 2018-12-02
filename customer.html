@@ -36,21 +36,47 @@
                     <div class="col-3" id="right">
 
                         <div class="row h-auto">
-                            <div class="comelo text-center">
-                                <h1 class="comelo">
-                                    comelo
-                                </h1>
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="container-fluid h-auto">
+                                        <div class="row text-center">
+                                            <div class="col-6 restaurant-name" >
+                                                <div class="row comelo">
+                                                    <h1 class="comelo">
+                                                        comelo
+                                                    </h1>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-3 btn-order-list">
+                                                <div class="row">
+                                                    <button class="order-list text-left btn-dark">History</button>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-3 btn-pay">
+                                                <div class="row">
+                                                    <button class="pay btn-primary">Pay</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="row order-list text-center">
-                            <div style="display: hidden; width: 100%" id="currentOrder" class="order-btn text-center"></div>
-                            <div id="orderList" class="order-btn text-center" style="width: 100%;">
-                                <button onclick="processOrder()" id="button" class="order-btn btn" style="padding-left: 12px; padding-right: 12px" disabled>
-                                    <p style="padding-left: 12px; padding-right: 12px">ORDER</p>
-                                </button>
+
+                        <div class="row order-list text-center h-75">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 footer-button">
+                                <div class="card card-order" style="height: 100%;">
+                                    <button class="order-btn btn" style="height: 15%;">ORDER</button>
+                                </div>
                             </div>
                         </div>
+
                     </div>
 
                 </div>
@@ -129,7 +155,7 @@
             			if(item["category"] == categoryName){
             				text +=`
             				<div class="col-6">
-            				<div class="card">
+            				<div class="card-menu card">
             				<img class="card-img-top h-75" src="${item["image_url"]}" alt="${item["name"]}">
             				<div class="container h-25">
             				<div class="row">

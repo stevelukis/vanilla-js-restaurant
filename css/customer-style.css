@@ -14,13 +14,34 @@ html {
 div.comelo {
     background-image: linear-gradient(to right, #FF0000, #FF8000);
     width: 100%;
+    padding: 0;
 }
 
 h1.comelo {
-    font-size: 68px;
+    font-size: 48px;
     padding: 2px;
     color: #fff;
     font-family: comelo, serif;
+}
+
+div.restaurant-name {
+    padding: 0;
+}
+
+div.btn-order-list {
+    padding: 0;
+}
+
+div.btn-pay {
+    padding: 0;
+}
+
+button.pay {
+    width: 100%;
+}
+
+button.order-list {
+    width: 100%;
 }
 
 div.order-list {
@@ -61,7 +82,7 @@ a {
     color: black;
 }
 
-.card {
+.card-menu {
     height: 300px;
     margin-bottom: 6px;
 }
@@ -96,4 +117,17 @@ a {
     width: 100%;
     height: 100%;
     border-radius: 0;
+}
+
+.footer-button {
+    padding: 0;
+    height: 100%;
+}
+
+button.order {
+    height: 100%;
+}
+
+.order-btn {
+    background: #FF8000;
 }

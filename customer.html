@@ -53,7 +53,7 @@
 
                                             <div class="col-3 btn-order-list">
                                                 <div class="row">
-                                                    <button class="order-list text-left btn-dark" data-target="#orderHistory" data-toggle="modal">History</button>
+                                                    <button class="order-list text-left btn-dark" data-target="#orderHistoryModel" data-toggle="modal">History</button>
                                                 </div>
                                             </div>
 
@@ -69,7 +69,7 @@
                         </div>
 
 
-                        <div class="row order-list text-center h-75">
+                        <div id="orderList" class="row order-list text-center h-75">
                         </div>
 
                         <div class="row">
@@ -85,7 +85,7 @@
         </div>
 
 
-        <div class="modal" tabindex="-1" id="orderHistory">
+        <div class="modal" tabindex="-1" id="orderHistoryModel">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -94,13 +94,16 @@
                     </div>
 
                     <div class="modal-body">
-                        <div class="container-fluid">
+                        <div class="container-fluid" id="orderHistory">
                             <div class="row">
-                                <div class="col-10">
+                                <div class="col-8">
                                     <p>Nama Menu</p>
                                 </div>
                                 <div class="col-2">
                                     <p>Jumlah</p>
+                                </div>
+                                <div class="col-2">
+                                    <p>Status</p>
                                 </div>
                             </div>
                         </div>
@@ -239,16 +242,21 @@
             }
             function loadOrderList(){
                 let status = true;
-                let text = `
-                <button onclick="processOrder()" id="button" class="order-btn btn" style="padding-left: 12px; padding-right: 12px">
-                    <p style="padding-left: 12px; padding-right: 12px">ORDER</p>
-                </button>`;
+                let text = `<div class="container-fluid">`;
                 list.forEach(function(item){
                     if(item["banyak"] > 0){
                         status = false;
-                        text += `<h3 style = "text-align:left; width:100%"> ${item["name"]} <span style = "float:right"> ${item["banyak"]} </span></h3>`;
+                        text +=`<div class="row">
+                                    <div class="col-10">
+                                        <p style="text-align:left;">${item["name"]}</p>
+                                    </div>
+                                    <div class="col-2">
+                                        <p>${item["banyak"]}</p>
+                                    </div>
+                                </div>`;
                     }
                 });
+                text +=`</div>`;
                 document.getElementById("orderList").innerHTML = text;
                 document.getElementById("button").disabled = status;
             }

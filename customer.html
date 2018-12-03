@@ -289,27 +289,27 @@
             function generateCurrentOrder(){
                 sendPost(url["getOrderStatus"], {"user_id": user_id}, function(response){
                     let text = `<div class="row">
-                                <div class="col-8">
-                                    <p>Nama Menu</p>
+                                <div class="col-7">
+                                    <p style="text-align: center;">Nama Menu</p>
                                 </div>
                                 <div class="col-2">
                                     <p>Jumlah</p>
                                 </div>
-                                <div class="col-2">
-                                    <p>Status</p>
+                                <div class="col-3">
+                                    <p style="text-align: center;">Status</p>
                                 </div>
                             </div>`;
                     response.forEach(function(item){
                         text += `
                             <div class="row">
-                                <div class="col-8">
+                                <div class="col-7">
                                     <p>${item["menu"]}</p>
                                 </div>
                                 <div class="col-2">
-                                    <p>${item["quantity"]}</p>
+                                    <p style="text-align: center;">${item["quantity"]}</p>
                                 </div>
-                                <div class="col-2">
-                                    <p>${item["cooked_status"]}</p>
+                                <div class="col-3">
+                                    <p>${(item["cooked_status"]).replace(/_/g, ' ')}</p>
                                 </div>
                             </div>`;
                     });

@@ -6,6 +6,9 @@
 html, body, .wrapper, .row, .container-fluid {
     height: 100%;
 }
+div.itemRow{
+    height: 20px;
+}
 
 html {
     overflow: hidden;

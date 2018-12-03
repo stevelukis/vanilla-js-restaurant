@@ -51,15 +51,15 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-3 btn-order-list">
+                                            <div class="col-3 btn-order-list" id="historyButton" style="display: none;">
                                                 <div class="row">
-                                                    <button class="order-list text-left btn-dark" data-target="#orderHistoryModel" data-toggle="modal">History</button>
+                                                    <button class="order-list text-left btn-dark" data-target="#orderHistoryModel" data-toggle="modal">Current<br>order</button>
                                                 </div>
                                             </div>
 
                                             <div class="col-3 btn-pay">
                                                 <div class="row">
-                                                    <button class="pay btn-primary">Pay</button>
+                                                    <button onClick="logout()" class="pay btn-primary">Pay</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -75,7 +75,7 @@
                         <div class="row">
                             <div class="col-12 footer-button">
                                 <div class="card card-order" style="height: 100%;">
-                                    <button class="order-btn btn" style="height: 15%;">ORDER</button>
+                                    <button id="button" class="order-btn btn" onClick="processOrder()" style="height: 15%;" disabled>ORDER</button>
                                 </div>
                             </div>
                         </div>
@@ -95,22 +95,10 @@
 
                     <div class="modal-body">
                         <div class="container-fluid" id="orderHistory">
-                            <div class="row">
-                                <div class="col-8">
-                                    <p>Nama Menu</p>
-                                </div>
-                                <div class="col-2">
-                                    <p>Jumlah</p>
-                                </div>
-                                <div class="col-2">
-                                    <p>Status</p>
-                                </div>
-                            </div>
                         </div>
                     </div>
 
                     <div class="modal-footer">
-                        <button id="editButton" class="btn btn-primary">Save</button>
                     </div>
                 </div>
             </div>
@@ -246,7 +234,7 @@
                 list.forEach(function(item){
                     if(item["banyak"] > 0){
                         status = false;
-                        text +=`<div class="row">
+                        text +=`<div class="row itemRow">
                                     <div class="col-10">
                                         <p style="text-align:left;">${item["name"]}</p>
                                     </div>
@@ -292,24 +280,47 @@
             }
             function generateCurrentOrder(){
                 sendPost(url["getOrderStatus"], {"user_id": user_id}, function(response){
-                    let text = "<h3>Pesanan Saat Ini</h3>\n";
+                    let text = `<div class="row">
+                                <div class="col-8">
+                                    <p>Nama Menu</p>
+                                </div>
+                                <div class="col-2">
+                                    <p>Jumlah</p>
+                                </div>
+                                <div class="col-2">
+                                    <p>Status</p>
+                                </div>
+                            </div>`;
                     response.forEach(function(item){
-                        text += `<h3 style = "text-align:left; width:100%"> ${item["menu"]} <span style = "float:right"> ${item["quantity"]} </span></h3>
-                        <h3 style = "text-align:left; width:100%"> status : ${item["cooked_status"]}</h3>`;
+                        text += `
+                            <div class="row">
+                                <div class="col-8">
+                                    <p>${item["menu"]}</p>
+                                </div>
+                                <div class="col-2">
+                                    <p>${item["quantity"]}</p>
+                                </div>
+                                <div class="col-2">
+                                    <p>${item["cooked_status"]}</p>
+                                </div>
+                            </div>`;
                     });
-                    document.getElementById("currentOrder").innerHTML = text;
+                    document.getElementById("orderHistory").innerHTML = text;
                 });
             }
             function orderProcessed(){
                 generateCurrentOrder();
-                document.getElementById("currentOrder").style.display = "inline";
+                document.getElementById("historyButton").style.display = "inline";
                 window.setInterval(function(){
                     generateCurrentOrder();
                 }, 5000);
             }
             function logout(){
-                window.localStorage.removeItem("user_id");
-                location.reload();
+                if(confirm("apakah anda ingin menyelesaikan kunungan anda?")){
+                    alert("terima kasih atas kunjungan anda");
+                    window.localStorage.removeItem("user_id");
+                    location.reload();
+                }
             }
             initialize();
         </script>

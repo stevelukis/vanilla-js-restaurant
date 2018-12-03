@@ -114,7 +114,8 @@
                 "getMenu" : "http://stevelukis.com/smart-restaurant/backend/customer/menu",
                 "getCategory" : "http://stevelukis.com/smart-restaurant/backend/manager/get_categories",
                 "getOrderStatus" : "http://stevelukis.com/smart-restaurant/backend/customer/order_status",
-                "order" : "http://stevelukis.com/smart-restaurant/backend/customer/order"
+                "order" : "http://stevelukis.com/smart-restaurant/backend/customer/order",
+                "addUser": "http://stevelukis.com/smart-restaurant/backend/customer/register"
             }
             let table_number = "";
             let user_id = "";
@@ -131,36 +132,43 @@
                 };
                 xhr.send(JSON.stringify(data));
             }
-
-            function initialize(){
+            function begin(){
                 table_number = window.localStorage.getItem("table_number");
                 user_id = window.localStorage.getItem("user_id");
                 if(table_number !== null){
                     if(user_id !== null){
-                        sendPost(url["getMenu"], {}, function(response){
-                            list = response;
-                            sendPost(url["getCategory"], {}, function(response){
-                                let text = '';
-                                response.forEach(function (item){
-                                    text += `
-                                    <div class="col-3 text-center">
-                                    <a id="${item["name"]}" onclick="select('${item['name']}')">
-                                    <h3>${item['name']}</h3>
-                                    </a>
-                                    </div>`;
-                                });
-                                document.getElementById("kategoriContainer").innerHTML = text;
-                                select(response[0]["name"]);
-                            });
-                        });
+                        initialize();
                     }else{
-                        window.localStorage.setItem("user_id", (new Date()).getTime());
-                        window.location.href = "customer.html";
+                        confirm("register user baru?");
+                        user_id = ((new Date()).getTime()).toString();
+                        let data = { "timestamp": user_id, "table_number": parseInt(table_number) };
+                        sendPost(url["addUser"], data, function(){
+                            window.localStorage.setItem("user_id", user_id);
+                            initialize();
+                        });
                     }
                 }else{
                     alert("silahkan registrasi meja terlebih dahulu");
                     window.location.href = "register.html";
                 }
+            }
+            function initialize(){
+                sendPost(url["getMenu"], {}, function(response){
+                    list = response;
+                    sendPost(url["getCategory"], {}, function(response){
+                        let text = '';
+                        response.forEach(function (item){
+                            text += `
+                            <div class="col-3 text-center">
+                            <a id="${item["name"]}" onclick="select('${item['name']}')">
+                            <h3>${item['name']}</h3>
+                            </a>
+                            </div>`;
+                        });
+                        document.getElementById("kategoriContainer").innerHTML = text;
+                        select(response[0]["name"]);
+                    });
+                });
             }
 
             function select(categoryName){
@@ -322,7 +330,7 @@
                     location.reload();
                 }
             }
-            initialize();
+            begin();
         </script>
     </body>
 </html>

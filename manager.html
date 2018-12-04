@@ -301,8 +301,8 @@
                         <div class="col-6" >
                             <div class="card">
                                 <img class="card-img-top h-75"  src="${item["image_url"]}" alt="${item["name"]}">
-                                <div class="container h-25">
-                                    <div class="row">
+                                <div class="container-fluid h-25">
+                                    <div class="row text-center">
                                         <div class="col-3" >
                                             <div class="row">
                                                 <button class="edit-btn btn" data-target="#editMenu" data-toggle="modal" onclick="openUpdate(${index})">
@@ -311,9 +311,9 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-6">
-                                            <div class="row text-center">
-                                                <h3>${item["name"]}</h3>
+                                        <div class="col-6 text-center">
+                                            <div class="row menu-name">
+                                                <h3 class="menu-name">${item["name"]}</h3>
                                             </div>
                                         </div>
 

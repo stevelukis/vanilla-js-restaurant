@@ -15,7 +15,6 @@ html {
 }
 
 div.comelo {
-    background-image: linear-gradient(to right, #FF0000, #FF8000);
     width: 100%;
     padding: 0;
 }
@@ -25,6 +24,7 @@ h1.comelo {
     padding: 2px;
     color: #fff;
     font-family: comelo, serif;
+    width: 100%;
 }
 
 div.restaurant-name {
@@ -85,6 +85,10 @@ a {
     color: black;
 }
 
+.card {
+    border: 0;
+}
+
 .card-menu {
     height: 300px;
     margin-bottom: 6px;
@@ -122,7 +126,7 @@ a {
     border-radius: 0;
 }
 
-.footer-button {
+.header-button {
     padding: 0;
     height: 100%;
 }
@@ -133,4 +137,16 @@ button.order {
 
 .order-btn {
     background: #FF8000;
+}
+
+.header-button {
+    padding: 0;
+}
+
+.comelo-div {
+    padding: 0;
+}
+
+.header-section {
+    background-image: linear-gradient(to right, #FF0000, #FF8000);
 }

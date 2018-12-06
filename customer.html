@@ -39,25 +39,27 @@
                     <div class="col-3" id="right">
 
                         <div class="row h-auto">
-                            <div class="col-12">
-                                <div class="card">
+                            <div class="col-lg-12 header-button">
+                                <div class="card header-section">
                                     <div class="container-fluid h-auto">
-                                        <div class="row text-center">
-                                            <div class="col-6 restaurant-name" >
-                                                <div class="row comelo">
-                                                    <h1 class="comelo">
-                                                        comelo
-                                                    </h1>
+                                        <div class="row">
+                                            <div class="col-6 comelo-div" >
+                                                <div class="row text-center">
+                                                    <div class="row comelo">
+                                                        <h1 class="comelo">
+                                                            comelo
+                                                        </h1>
+                                                    </div>
                                                 </div>
                                             </div>
 
-                                            <div class="col-3 btn-order-list" id="historyButton" style="display: none;">
+                                            <div class="col-3" >
                                                 <div class="row">
-                                                    <button class="order-list text-left btn-dark" data-target="#orderHistoryModel" data-toggle="modal">Current<br>order</button>
+                                                    <button class="order-list text-left btn-dark" data-target="#orderHistoryModel" data-toggle="modal" style="display: none;">Current order</button>
                                                 </div>
                                             </div>
 
-                                            <div class="col-3 btn-pay">
+                                            <div class="col-3">
                                                 <div class="row">
                                                     <button onClick="logout()" class="pay btn-primary">Pay</button>
                                                 </div>
@@ -73,7 +75,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-12 footer-button">
+                            <div class="col-12 header-button">
                                 <div class="card card-order" style="height: 100%;">
                                     <button id="button" class="order-btn btn" onClick="processOrder()" style="height: 15%;" disabled>ORDER</button>
                                 </div>

@@ -150,3 +150,7 @@ button.order {
 .header-section {
     background-image: linear-gradient(to right, #FF0000, #FF8000);
 }
+
+.modal-backdrop {
+    opacity: 0.5 !important;
+}

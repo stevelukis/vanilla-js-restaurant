@@ -46,7 +46,9 @@
                     </div>
                 </div>
 
-                <div id="category" class="row h-75 menu-category-list">
+                <div class="row h-75 menu-category-list">
+                    <div id="category" class="container-fluid style="height: 0%">
+                    </div>
                 </div>
 
                 <div class="row">
@@ -275,7 +277,10 @@
                 let text = '';
                 let text1 = '';
                 response.forEach(function (item){
-                    text += `<h3 id="${item["id"]}" onclick="select(${item["id"]})" style = "text-align:center; width:100%">${item["name"]}</h3>\n`;
+                    text +=`
+                        <div class="row h-auto text-center">
+                                <button class="btn" id="${item["id"]}"  onclick="select(${item["id"]})" style="width: 100%">${item["name"]}</button>
+                        </div>`;
                     text1 += `<option value="${item["id"]}">${item["name"]}</option>`;
                 });
                 document.getElementById("category").innerHTML = text;
@@ -288,11 +293,11 @@
     function select(categoryId){
         if(selected !== categoryId){
             if(selected !== ""){
-                document.getElementById(selected).setAttribute("class","");
+                document.getElementById(selected).setAttribute("class","btn");
             }
             selected = categoryId;
             selectedObj = document.getElementById(categoryId);
-            selectedObj.setAttribute("class","selected");
+            selectedObj.setAttribute("class","selected btn");
             categoryName = selectedObj.innerHTML;
             let text = '';
             list.forEach(function(item, index){

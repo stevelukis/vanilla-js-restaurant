@@ -29,14 +29,15 @@ h1.comelo {
 }
 
 .menu-category-list {
-
+    overflow-y: scroll;
     background-color: #000;
 }
-.menu-category-list h3 {
+.menu-category-list button {
     color: #999;
     background-color: #333;
+    margin: 4px 0px;
 }
-.menu-category-list h3.selected {
+.menu-category-list button.selected {
     color: white;
     background-color: #666;
 }

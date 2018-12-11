@@ -118,7 +118,7 @@
                 "getOrderStatus" : "http://stevelukis.com/smart-restaurant/backend/customer/order_status",
                 "order" : "http://stevelukis.com/smart-restaurant/backend/customer/order",
                 "addUser": "http://stevelukis.com/smart-restaurant/backend/customer/register"
-            }
+            };
             let table_number = "";
             let user_id = "";
             let list = {};
@@ -140,8 +140,8 @@
                 if(table_number !== null){
                     if(user_id !== null){
                         initialize();
-                    }else{
-                        confirm("register user baru?");
+                    } else {
+                        confirm("Buka meja?");
                         user_id = ((new Date()).getTime()).toString();
                         let data = { "timestamp": user_id, "table_number": parseInt(table_number) };
                         sendPost(url["addUser"], data, function(){
@@ -150,7 +150,7 @@
                         });
                     }
                 }else{
-                    alert("silahkan registrasi meja terlebih dahulu");
+                    alert("Silahkan registrasi meja terlebih dahulu!");
                     window.location.href = "register.html";
                 }
             }
@@ -326,8 +326,8 @@
                 }, 5000);
             }
             function logout(){
-                if(confirm("apakah anda ingin menyelesaikan kunungan anda?")){
-                    alert("terima kasih atas kunjungan anda");
+                if(confirm("Apakah anda ingin menyelesaikan kunjungan Anda?")){
+                    alert("Terima kasih atas kunjungan Anda.");
                     window.localStorage.removeItem("user_id");
                     location.reload();
                 }

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>Comelo - Smart Restaurant</title>
+
+        <!-- Bootstrap -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/customer-style.css">
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+
+        <div class="wrapper">
+
+            <div class="container-fluid">
+                <div class="row">
+
+                    <div class="col-9" id="left">
+                        <div id="kategoriContainer" class="row food-beverage h-auto">
+                        </div>
+
+                        <div id="menuList" class="row menu-list">
+                        </div>
+                    </div>
+
+                    <div class="col-3" id="right">
+
+                        <div class="row h-auto">
+                            <div class="col-lg-12 header-button">
+                                <div class="card header-section">
+                                    <div class="container-fluid h-auto">
+                                        <div class="row">
+                                            <div class="col-6 comelo-div" >
+                                                <div class="row text-center">
+                                                    <div class="row comelo">
+                                                        <h1 class="comelo">
+                                                            comelo
+                                                        </h1>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-3" >
+                                                <div class="row">
+                                                    <button class="order-list text-left btn-dark" data-target="#orderHistoryModel" data-toggle="modal" style="display: none;">Current order</button>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-3">
+                                                <div class="row">
+                                                    <button onClick="logout()" class="pay btn-primary">Pay</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div id="orderList" class="row order-list text-center h-75">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 header-button">
+                                <div class="card card-order" style="height: 100%;">
+                                    <button id="button" class="order-btn btn" onClick="processOrder()" style="height: 15%;" disabled>ORDER</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal" tabindex="-1" id="orderHistoryModel">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Order List</h4>
+                        <button class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="container-fluid" id="orderHistory">
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="js/bootstrap.min.js"></script>
+        <script type="text/javascript">
+            let url = {
+                "getMenu" : "http://stevelukis.com/smart-restaurant/backend/customer/menu",
+                "getCategory" : "http://stevelukis.com/smart-restaurant/backend/manager/get_categories",
+                "getOrderStatus" : "http://stevelukis.com/smart-restaurant/backend/customer/order_status",
+                "order" : "http://stevelukis.com/smart-restaurant/backend/customer/order",
+                "addUser": "http://stevelukis.com/smart-restaurant/backend/customer/register"
+            }
+            let table_number = "";
+            let user_id = "";
+            let list = {};
+            let selected = "";
+            function sendPost(url, data, callback){
+                let xhr = new XMLHttpRequest();
+                xhr.open("POST", url, true);
+                xhr.setRequestHeader("Content-Type", "application/json");
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        callback(JSON.parse(xhr.responseText));
+                    }
+                };
+                xhr.send(JSON.stringify(data));
+            }
+            function begin(){
+                table_number = window.localStorage.getItem("table_number");
+                user_id = window.localStorage.getItem("user_id");
+                if(table_number !== null){
+                    if(user_id !== null){
+                        initialize();
+                    }else{
+                        confirm("register user baru?");
+                        user_id = ((new Date()).getTime()).toString();
+                        let data = { "timestamp": user_id, "table_number": parseInt(table_number) };
+                        sendPost(url["addUser"], data, function(){
+                            window.localStorage.setItem("user_id", user_id);
+                            initialize();
+                        });
+                    }
+                }else{
+                    alert("silahkan registrasi meja terlebih dahulu");
+                    window.location.href = "register.html";
+                }
+            }
+            function initialize(){
+                sendPost(url["getMenu"], {}, function(response){
+                    list = response;
+                    sendPost(url["getCategory"], {}, function(response){
+                        let text = '';
+                        response.forEach(function (item){
+                            text += `
+                            <div class="col-3 text-center">
+                            <a id="${item["name"]}" onclick="select('${item['name']}')">
+                            <h3>${item['name']}</h3>
+                            </a>
+                            </div>`;
+                        });
+                        document.getElementById("kategoriContainer").innerHTML = text;
+                        select(response[0]["name"]);
+                    });
+                });
+            }
+
+            function select(categoryName){
+            	if(selected !== categoryName){
+            		if(selected !== ""){
+            			document.getElementById(selected).setAttribute("class","");
+            		}
+            		selected = categoryName;
+            		selectedObj = document.getElementById(selected);
+            		selectedObj.setAttribute("class","selected");
+            		let text = '';
+            		list.forEach(function(item, index){
+            			if(item["category"] == categoryName){
+            				text +=`
+            				<div class="col-6">
+            				<div class="card-menu card">
+            				<img class="card-img-top h-75" src="${item["image_url"]}" alt="${item["name"]}">
+            				<div class="container h-25">
+            				<div class="row">
+            				<div class="col-2 text-center">
+            				<div class="row">
+            				<button onclick="minus(${index})" class="min-btn btn">
+            				<h1>-</h1>
+            				</button>
+            				</div>
+            				</div>
+
+            				<div class="col-8 text-center">
+            				<div class="row">
+            				<div class="card-body">
+            				<p class="menu-desc">Rp. ${item["price"]}</p>
+            				<h3 class="menu-desc">${item["name"]}</h3>
+            				</div>
+            				</div>
+            				</div>
+
+            				<div class="col-2 text-center">
+            				<div class="row">
+            				<button onclick="plus(${index})" class="plus-btn btn">
+            				<h1>+</h1>
+            				</button>
+            				</div>
+            				</div>
+            				</div>
+            				</div>
+            				</div>
+            				</div>`;
+            			}
+            		});
+            		document.getElementById("menuList").innerHTML = text;
+            	}
+            }
+
+            function plus(index){
+                if(list[index]["banyak"] == undefined){
+                    list[index]["banyak"] = 1;
+                }else {
+                    list[index]["banyak"] += 1;
+                }
+                loadOrderList();
+            }
+            function minus(index){
+                if(list[index]["banyak"] > 0){
+                    list[index]["banyak"] -= 1;
+                }
+                loadOrderList();
+            }
+            function loadOrderList(){
+                let status = true;
+                let text = `<div class="container-fluid">`;
+                list.forEach(function(item){
+                    if(item["banyak"] > 0){
+                        status = false;
+                        text +=`<div class="row itemRow">
+                                    <div class="col-10">
+                                        <p style="text-align:left;">${item["name"]}</p>
+                                    </div>
+                                    <div class="col-2">
+                                        <p>${item["banyak"]}</p>
+                                    </div>
+                                </div>`;
+                    }
+                });
+                text +=`</div>`;
+                document.getElementById("orderList").innerHTML = text;
+                document.getElementById("button").disabled = status;
+            }
+            function processOrder(){
+                let text = "";
+                list.forEach(function(item, index){
+                    if(item["banyak"] > 0){
+                        let data = { "user_id": user_id,
+                        "menu_id": item["id"],
+                        "quantity": item["banyak"] }
+                        sendPost(url["order"], data, function(response){});
+                        text += `${item["name"]}: ${item["banyak"]}\n`;
+                        item["banyak"] = 0;
+                    }
+                });
+                testMenu(text);
+            }
+            function testMenu(text){
+                let success = true;
+                list.forEach(function(item){
+                    if(item["banyak"] > 0){
+                        success = false;
+                    }
+                });
+                if(success){
+                    text += "memesan sukses";
+                }else{
+                    text += "pesanan tak selesai sempurna";
+                }
+                alert(text);
+                loadOrderList();
+                orderProcessed();
+            }
+            function generateCurrentOrder(){
+                sendPost(url["getOrderStatus"], {"user_id": user_id}, function(response){
+                    let text = `<div class="row">
+                                <div class="col-7">
+                                    <p style="text-align: center;">Nama Menu</p>
+                                </div>
+                                <div class="col-2">
+                                    <p>Jumlah</p>
+                                </div>
+                                <div class="col-3">
+                                    <p style="text-align: center;">Status</p>
+                                </div>
+                            </div>`;
+                    response.forEach(function(item){
+                        text += `
+                            <div class="row">
+                                <div class="col-7">
+                                    <p>${item["menu"]}</p>
+                                </div>
+                                <div class="col-2">
+                                    <p style="text-align: center;">${item["quantity"]}</p>
+                                </div>
+                                <div class="col-3">
+                                    <p>${(item["cooked_status"]).replace(/_/g, ' ')}</p>
+                                </div>
+                            </div>`;
+                    });
+                    document.getElementById("orderHistory").innerHTML = text;
+                });
+            }
+            function orderProcessed(){
+                generateCurrentOrder();
+                document.getElementById("historyButton").style.display = "inline";
+                window.setInterval(function(){
+                    generateCurrentOrder();
+                }, 5000);
+            }
+            function logout(){
+                if(confirm("apakah anda ingin menyelesaikan kunungan anda?")){
+                    alert("terima kasih atas kunjungan anda");
+                    window.localStorage.removeItem("user_id");
+                    location.reload();
+                }
+            }
+            begin();
+        </script>
+    </body>
+</html>

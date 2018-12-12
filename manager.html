@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<title>SmartResto</title>
+
+
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<!-- Theme style  -->
+	<link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+	<div id="page">
+		<a href="#" class="js-nav-toggle nav-toggle"><i></i></a>
+		<aside id="aside" role="complementary" class="border js-fullheight">
+
+			<h1 id="logo"><a href="index.html"><img  src="images/logo.png"></a></h1>
+
+			<nav id="main-menu" role="navigation">
+				<ul id="category">
+				</ul>
+			</nav>
+
+			<footer class="footer">
+				<button onclick = "openAddKategori()">ADD</button>
+				<button onclick = "openUpdateKategori()">EDIT</button>
+				<button onclick ="deleteCategory()">DELETE</button>
+			</footer>
+
+		</aside>
+
+		<div id="main">
+
+			<!-- The Modal -->
+			<div id="myModal" class="modal">
+
+				<!-- Modal content -->
+				<div class="modal-content">
+					<div class="narrow-content">
+						<h2 class="heading animate-box" data-animate-effect="fadeInLeft" id="titleModal">Menu Edit</h2>
+						<div class="row">
+
+							<div class="col-md-12 animate-box" data-animate-effect="fadeInLeft">
+								<figure class="text-center">
+									<img src="" class="img-responsive" id="gambar">
+								</figure>
+							</div>
+
+							<div class="col-md-8 col-md-offset-2 animate-box" data-animate-effect="fadeInLeft">
+
+								<div class="col-md-9 col-md-push-3">
+									<table>
+										<tr>
+											<td><pre>Nama          <input id="nama input" type="text" name=""></pre></td>
+
+										</tr>
+										<tr>
+											<td><pre>Gambar        <input id="gambar url" type="text" name=""></pre></td>
+
+										</tr>
+										<tr id = "kategori">
+											<td><pre>KATEGORI      <select name="kategori" id="kategori input">
+												</select></pre></td>
+
+										</tr>
+										<tr>
+											<td><pre>HARGA         <input id="harga input" type="text" name=""></pre></td>
+										</tr>
+									</table>
+
+									<button id="save">SAVE</button> <button id = "delete">DELETE</button>
+
+								</div>
+
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+			</div>
+
+			<div id="ModalKate" class="modal" >
+				<div class="modal-content">
+					<div class="narrow-content">
+						<h2 class="heading animate-box" data-animate-effect="fadeInLeft" id="titleModalKate"></h2>
+						<div class="row">
+							<div class="col-md-8 col-md-offset-2 animate-box" data-animate-effect="fadeInLeft">
+
+								<div class="col-md-9 col-md-push-3">
+									<table>
+										<tr>
+											<td><pre>Nama          <input id="categoryNameField" type="text" name=""></pre></td>
+
+										</tr>
+									</table>
+
+									<button id="kategori button">ADD</button>
+									<span class="close">&times;</span>
+
+								</div>
+
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+			</div>
+
+			<div class="narrow-content">
+				<h2 class="heading animate-box">Menu List</h2>
+				<div class="row animate-box" id="menuList"></div>
+			</div>
+		</div>
+	</div>
+	<script>
+	let url = {
+		"getMenu" : "http://stevelukis.com/smart-restaurant/backend/customer/menu",
+		"addMenu" : "http://stevelukis.com/smart-restaurant/backend/manager/add_menu",
+		"updateMenu" : "http://stevelukis.com/smart-restaurant/backend/manager/update_menu",
+		"deleteMenu" : " http://stevelukis.com/smart-restaurant/backend/manager/delete_menu",
+		"getCategory" : "http://stevelukis.com/smart-restaurant/backend/manager/get_categories",
+		"addCategory" : "http://stevelukis.com/smart-restaurant/backend/manager/add_category",
+		"updateCategory" : "http://stevelukis.com/smart-restaurant/backend/manager/update_category",
+		"deleteCategory" : "http://stevelukis.com/smart-restaurant/backend/manager/delete_category"
+	}
+	let selectedCategory;
+	let list = {};
+	let modal = document.getElementById('myModal');
+	let modalKate = document.getElementById("ModalKate");
+	function sendPost(url, data, callback){
+		let xhr = new XMLHttpRequest();
+		xhr.open("POST", url, true);
+		xhr.setRequestHeader("Content-Type", "application/json");
+		xhr.onreadystatechange = function () {
+			if (xhr.readyState === 4 && xhr.status === 200) {
+				callback(JSON.parse(xhr.responseText));
+			}
+		};
+		xhr.send(JSON.stringify(data));
+	}
+
+	function initialize(){
+		sendPost(url["getMenu"], {}, function(response){
+			list = response;
+			sendPost(url["getCategory"], {}, function(response){
+				let text = '';
+				let text1 = '';
+				response.forEach(function (item){
+					text += `<li><a id="${item["id"]}" onclick="select(${item["id"]})">${item["name"]}</a></li>\n`;
+					text1 += `<option value="${item["id"]}">${item["name"]}</option>`;
+				});
+				document.getElementById("category").innerHTML = text;
+				document.getElementById("kategori input").innerHTML = text1;
+				select(response[0]["id"]);
+			});
+		});
+		
+
+
+	}
+
+	function openUpdateKategori(){
+		selectedValue = document.getElementsByClassName("selected")[0].innerHTML;
+		document.getElementById('categoryNameField').value = selectedValue;
+		document.getElementById("titleModalKate").innerHTML = "Edit Kategori";
+		document.getElementById('kategori button').innerHTML = "Update"
+		document.getElementById('kategori button').setAttribute("onclick",`updateCategory()`);
+		modalKate.style.display = "block";
+	}
+	function openAddKategori(){
+		document.getElementById("titleModalKate").innerHTML = "Tambah Kategori";
+		document.getElementById('categoryNameField').value = "";
+		document.getElementById('kategori button').innerHTML = "Add"
+		document.getElementById('kategori button').setAttribute("onclick",`addCategory()`);
+		modalKate.style.display = "block";
+	}
+
+	function addCategory(){
+		let data = {"category":document.getElementById("categoryNameField").value};
+		checkFullyFilled(data,function(){
+			sendPost(url["addCategory"], data, function(response){
+				alert("add success");
+				location.reload();
+			});
+		});
+	}
+	function updateCategory(){
+		let data = {
+			"id":document.getElementsByClassName("selected")[0].id,
+			"name":document.getElementById("categoryNameField").value
+		};
+		checkFullyFilled(data,function(){
+			sendPost(url["updateCategory"], data, function(response){
+				alert("update success");
+				location.reload();
+			});
+		});
+	}
+	function deleteCategory(){
+		let data = {"id":document.getElementsByClassName("selected")[0].id};
+		sendPost(url["deleteCategory"], data, function(response){
+			if(response["status"] === "fail")
+				alert("gagal menghapus, kategori tidak kosong");
+			else{
+				alert("delete success");
+				location.reload();
+			}
+		});
+	}
+
+	function select(categoryId){
+		let selected = document.getElementsByClassName("selected");
+		if(selected.length !== 0){
+			selected[0].setAttribute("class","");;
+		}
+		selected = document.getElementById(categoryId);
+		selected.setAttribute("class","selected");
+		categoryName = selected.innerHTML;
+		let text = '';
+		list.forEach(function(item, index){
+			if(item["category"] == categoryName){
+				text += `
+				<div class="col-md-4 col-sm-6 col-xs-6 col-xxs-12 work-item">
+				<a onclick="openUpdate(${index})">
+				<img src="${item["image_url"]}" class="img-responsive">
+				<h3 class="work-title">${item["name"]}</h3>
+				<p id="Harga">Rp. ${item["price"]}</p>
+				</a>
+				</div>`;
+			}
+		});
+		text += `
+		<div class="col-md-4 col-sm-6 col-xs-6 col-xxs-12 work-item">
+		<a onclick="openAdd()">
+		<img src="images/work_4.jpg" class="img-responsive">
+		<h3 class="work-title">ADD MENU</h3>
+		</a>
+		</div>`;
+		document.getElementById("menuList").innerHTML = text;
+	}
+	function openUpdate(index){
+		document.getElementById("titleModal").innerHTML = "Edit Menu";
+		document.getElementById('gambar').style.display = "inline";
+		document.getElementById('delete').style.display = "inline";
+		document.getElementById('gambar').src = list[index]["image_url"];
+		document.getElementById('gambar url').value = list[index]["image_url"];
+		document.getElementById('nama input').value = list[index]["name"];
+		document.getElementById('harga input').value = list[index]["price"];
+		document.getElementById('kategori').style.display = "inline";
+		document.getElementById('kategori input').value = document.getElementsByClassName("selected")[0].id;
+		document.getElementById('save').setAttribute("onclick",`updateMenu(${index})`);
+		document.getElementById('delete').setAttribute("onclick",`deleteMenu(${index})`);
+		modal.style.display = "block";
+	}
+	function openAdd(){
+		document.getElementById("titleModal").innerHTML = "Tambah Menu";
+		document.getElementById('delete').style.display = "none";
+		document.getElementById('gambar').style.display = "none";
+		document.getElementById('gambar url').value = "";
+		document.getElementById('nama input').value = "";
+		document.getElementById('harga input').value = "";
+		document.getElementById('kategori').style.display = "none";
+		document.getElementById('save').setAttribute("onclick",`addMenu()`);
+		modal.style.display = "block";
+	}
+	function updateMenu(index){
+		data = {
+			"id": list[index]["id"],
+			"name": document.getElementById('nama input').value,
+			"category_id": document.getElementById('kategori input').value,
+			"price": document.getElementById('harga input').value,
+			"image_url": document.getElementById('gambar url').value
+		};
+		checkFullyFilled(data, function(data){
+				sendPost(url["updateMenu"], data, function(response){
+					alert("update success");
+					location.reload();
+				});
+			}
+		);
+	}
+	function addMenu(index){
+		data = {
+			"name": document.getElementById('nama input').value,
+			"category_id": document.getElementsByClassName('selected')[0].id,
+			"price": document.getElementById('harga input').value,
+			"image_url": document.getElementById('gambar url').value
+		};
+		checkFullyFilled(data, function(){
+				sendPost(url["addMenu"], data, function(response){
+					alert("add success");
+					location.reload();
+				});
+			}
+		);
+	}
+	function checkFullyFilled(data, callback){
+		let fullyFilled = true;
+		for(var key in data){
+			if(data[key] === ""){
+				fullyFilled = false;
+				break;
+			}
+		};
+		if(fullyFilled){
+			callback(data);
+		}else{
+			alert("data tidak lengkap");
+		}
+	}
+	function deleteMenu(index){
+		data = {
+			"id": list[index]["id"]
+		};
+		sendPost(url["deleteMenu"], data, function(response){
+			alert("delete success");
+			location.reload();
+		});
+	}
+
+	// When the user clicks anywhere outside of the modal, close it
+	initialize();
+	window.onclick = function(event) {
+		if (event.target == modal) {
+			modal.style.display = "none";
+		}else if (event.target == modalKate) {
+			modalKate.style.display = "none";
+		}
+	}
+	</script>
+</body>
+</html>

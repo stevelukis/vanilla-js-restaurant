@@ -1,0 +1,147 @@
+<!doctype html>
+<html>
+<head>
+    <title>Billing</title>
+    <link rel="stylesheet" href="css/Bill-style.css">
+</head>
+
+<body>
+
+    <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
+        <div style="position: absolute; margin-left: 83%; margin-top: 1% " class="RB">
+           <input id="idInput" type="text" value="">
+            <button type="button" onclick="getBill()">REQUEST BILL</button>
+        </div>
+        <a class="navbar-brand brand-logo" href="index.html">
+          <img src="images/logo.svg" alt="logo" />
+        </a>
+        <a class="navbar-brand brand-logo-mini" href="index.html">
+          <img src="images/logo-mini.svg" alt="logo" />
+        </a>
+      </div>
+    </nav>
+    <center><h1 id = "error"></h1></center>
+    <div style="position: absolute; margin-left: 29%; margin-top: 5%" id="Bill">
+        <h1 style="text-align: center;">TABLE <span id="tableNumber"></span></h1>
+        <table id="Nilai" cellpadding="0" cellspacing="0">
+            <tr class="top">
+                <td colspan="3">
+                    <table>
+                        <tr>
+                            <td class="title">
+                                <img src="images/logobilling.png" style="width:15%; ">
+                            </td>
+                            <td>
+                                Bill #: <span id="customerId"></span><br>
+                                Created: <span id="date"></span><br>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <tr class="information">
+                <td colspan="3">
+                    <table>
+                        <tr>
+                            <td>
+                                NoName Resto<br>
+                                Hertasning<br>
+                                0812 3456 7890
+                            </td>
+
+                            <td>
+                                <br>
+                                ElbertThomax<br>
+                                NoNameResto@email.com
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+
+        <div>
+            <table id = "isi">
+            </table>
+        </div>
+    </div>
+    <script type="text/javascript">
+        let urlSetPaid = "http://stevelukis.com/smart-restaurant/backend/cashier/paid";
+        let urlGetBill = "http://stevelukis.com/smart-restaurant/backend/cashier/get_orders";
+        let id = 0;
+
+        function sendPost(url, data, callback){
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    callback(JSON.parse(xhr.responseText));
+                }
+            };
+            xhr.send(JSON.stringify(data));
+        }
+
+        function confirmPayment(){
+            sendPost(urlSetPaid,{"id": id},function(response){
+				console.log(response);
+                alert("payment success");
+                document.getElementById("Bill").style.display = "none";
+            });
+        }
+
+        function getBill(){
+            let tableNumber = document.getElementById("idInput").value;
+            if(tableNumber !== ""){
+                let data = { "table_number": tableNumber };
+                sendPost(urlGetBill, data, function(response){
+                    if(response[0] !== undefined){
+                        document.getElementById("date").innerHTML = (new Date()).toString().split(' ').splice(1,3).join(' ');
+                        document.getElementById("tableNumber").innerHTML = tableNumber;
+                        id = response[0]["user_id"];
+                        document.getElementById("customerId").innerHTML = id;
+                        let total = 0;
+                        let text = `
+                        <tr class="heading">
+                        <td>Item</td>
+                        <td>Quantity</td>
+                        <td>Price</td>
+                        </tr>`;
+                        response.forEach(function(item){
+                            total += item["price"]*item["quantity"];
+                            text += `
+                            <tr class="item">
+                            <td>${item["menu_name"]}</td>
+                            <td>${item["quantity"]}</td>
+                            <td>Rp. ${(item["price"]*item["quantity"]).toLocaleString('en')}</td>
+                            </tr>`
+                        });
+                        text += `
+                        <tr class="total">
+                        <td></td>
+                        <td>Total:</td>
+                        <td>Rp. ${total.toLocaleString('en')}</td>
+                        </tr>
+                        <tr class="total">
+                        <td></td>
+                        <td></td>
+                        <td>
+                        <button type="button" onclick="confirmPayment()">Pay</button>
+                        </td>
+                        </tr>`;
+                        document.getElementById("isi").innerHTML = text;
+                        document.getElementById("Bill").style.display = "inline";
+                        document.getElementById("error").innerHTML = "";
+                    }else{
+                        document.getElementById("error").innerHTML = "data tak ditemukan";
+                    }
+                });
+            }else{
+                document.getElementById("error").innerHTML = "Nomor Meja tak boleh kosong";
+            }
+        }
+    </script>
+</body>
+</html>

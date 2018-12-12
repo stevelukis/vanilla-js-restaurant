@@ -3,11 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <link rel="stylesheet" href="css/css-chef.css">
 </head>
 <body>
 
-<h1>List Makanan</h1>
-<div id="data"></div>
+<div class="main-panel">
+    <div class="content-wrapper">
+        <h1 class="mb-4 text-center">List Pesanan</h1>
+        <div id="data" class = "row">
+
+        </div>
+    </div>
+</div>
 
 <script>
 
@@ -16,28 +24,58 @@
     let url_SetOrderDone = "http://stevelukis.com/smart-restaurant/backend/chef/done";
     let data = {};
 
-    makeRequest(url_GetOrder, data, function (response) {
-        for(var i = 0; i < response.length; i++){
-            let orderID = response[i]['id'];
-            var outputOrder = '';
-            outputOrder += '<div><h3>Table Number:';
-            outputOrder += '<span>' + response[i]["table_number"] + '</span></h3>';
-            outputOrder += '<p><span> ' + response[i]["quantity"] + '</span>';
-            outputOrder += '<span> ' + response[i]["menu_name"] + '</span>';
-            outputOrder += '<span> ' + response[i]["cooked_status"] + '</span>';
-            outputOrder += ' <button onclick="inProgress('+ orderID + ')">In Progress</button>';
-            outputOrder += ' <button onclick="orderDone('+ orderID + ')">Done</button>';
-            outputOrder += '<br></div>';
-            document.getElementById('data').innerHTML += outputOrder;
-        }
-    });
+    function load_data(){
+        makeRequest(url_GetOrder, data, function (response) {
+            document.getElementById("data").innerHTML = '';
+            for(var i = 0; i < response.length; i++){
+                let orderID = response[i]['id'];
+                var outputOrder = '';
+                var cookedStatus = '';
+                if(response[i]["cooked_status"] === 'not_yet') cookedStatus = 'New';
+                else cookedStatus = 'In Progress';
+
+                outputOrder +=  '<div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 grid-margin stretch-card">' +
+                    '<div class="card card-statistics">' +
+                    '<div class="card-header">' +
+                    '<div class="clearfix">' +
+                    '<div class="float-left">' +
+                    '<h4 class="font-weight-medium text-left mb-2 mt-2 ml-2 width-100">' +
+                    'Table Number : ' + response[i]["table_number"] + '</h4>' +
+                    '</div>' +
+                    '<div class="card-body">' +
+                    '<div class="float-left">' +
+                    '<h3 class="font-weight-medium text-left mb-3 mt-4">' +
+                    response[i]["quantity"] + '<span class="pl-4">' +
+                    response[i]["menu_name"] + '</span></h3>' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="float-right">' +
+                    '<button class="btn btn-warning btn-fw m-1" onclick="inProgress('+ orderID +')">' +
+                    'In Progress</button>' +
+                    '<button class="btn btn-success btn-fw m-1" onclick="orderDone('+ orderID + ')">' +
+                    'Done</button>' +
+                    '</div>' +
+                    '<div class="float-left mb-4">' +
+                    '<p class="text-muted text-left mt-1 mb-0 ml-2 width-100">' +
+                    cookedStatus + '</p>' +
+                    '</div> <br>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>';
+                document.getElementById('data').innerHTML += outputOrder;
+            }
+        });
+    }
+
+    load_data();
 
     function inProgress(id){
         let order = {
             "id" : id
         };
-        makeRequest(url_SetInProgress, order, function(response){
-            window.location = "chef.html";
+        makeRequest(url_SetInProgress, order, function(response_){
+            load_data();
         });
     }
 
@@ -46,7 +84,7 @@
             "id" : id
         };
         makeRequest(url_SetOrderDone, order, function(response){
-            window.location = "chef.html";
+            load_data();
         });
     }
 
@@ -62,6 +100,10 @@
         };
         request.send(JSON.stringify(data));
     }
+
+    setInterval(function(){
+        load_data();
+    }, 5000);
 
 </script>
 
